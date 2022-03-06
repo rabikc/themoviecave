@@ -1,0 +1,151 @@
+:root{
+    --m: #072227;
+    --s: #35858b;
+    --t: #4fbdba;
+    --a: #aefeff;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+li{
+    list-style: none;
+}
+
+body{
+    background-color: var(--m);
+}
+
+.hero-section{
+    position: relative;
+    width: 100%;
+    height: 89vh;
+    background: url(../../public/images/hero-image.jpg) center no-repeat;
+    background-size: cover;
+}
+
+.hero-overlay{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1000;
+}
+
+.hero-content-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: #fff;
+    padding: 2rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.hero-content-section .main-title{
+    font-size: 2.5rem;
+}
+
+.hero-content-section .subtitle{
+    margin-bottom: 2rem;
+}
+
+.hero-content-section a{
+    font-size: 1.2rem;
+    padding: 0.7rem;
+    border-radius: 5px;
+    background: var(--s);
+}
+
+.hero-content-section a:hover{
+    background: var(--t);
+    transition: background 125ms ease-in ;
+}
+
+.signup-box{
+    display: grid;
+    grid-template-columns: 1fr 0.4fr;
+    gap: 1rem;
+    width:88%;
+    margin: 2rem auto;
+    background: url(../../public/images/sign-up-bg.jpg) center no-repeat;
+    background-size: cover;
+    padding: 1.5rem;
+    color: #fff;
+}
+
+.signup-first-section .section-title{
+    margin-bottom: 1rem;
+}
+.signup-first-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.signup-box .signup-box-button{
+    background-color: var(--s);
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    margin-top: 2rem;
+    display: inline-block;
+}
+
+.signup-btn-section{
+    border: 1px solid white;
+}
+
+.signup-list{
+    margin-top: 1rem;
+}
+
+.signup-list li{
+    list-style: disc;
+}
+
+
+/********** FOOTER **********/
+
+.footer{
+    border-top: 1px dotted #fff;
+}
+.page-footer{
+    display: grid;
+    grid-template-rows: 1fr;
+    width: 70%;
+    margin: auto;
+    height: 30vh;
+    border-top: 1px dotted #fff;
+}
+
+.footer-links{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #fff;
+    padding: 0.8rem;
+}
+
+/* .footer-media-links{
+    display: ;
+} */
+
+.footer-logo-link img{
+    width: 25%;
+}
+
+.ipc-icon{
+    color: #fff;
+}

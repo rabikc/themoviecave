@@ -1,0 +1,194 @@
+.container{
+    width: 90%;
+    margin: auto;
+
+}
+.page-header{
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+}
+
+.page-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.page-logo{
+    width: 230px;
+    padding: 0.5rem;
+}
+
+.page-logo img{
+    width: 100%;
+
+}
+
+.header-searchbar{
+    position: relative;
+    padding: 0.5rem;
+}
+
+.header-searchbar .search-icon{
+    width: 20px;
+    position: absolute;
+    top: 33%;
+    left: 3.3%;
+}
+
+.header-searchbar input{
+    padding: 0.6rem 2rem;
+    width: 27rem;
+    border-radius: 7px;
+    border: none;
+}
+
+.header-links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.header-links li{
+    margin-right: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-links li a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+.signin-btn{
+    cursor: pointer;
+    border: none;
+    padding: 0.6rem 0.7rem;
+    background-color: var(--s);
+    border-radius: 5px;
+    color: white;
+
+}
+
+.header-signup-link{
+    background-color: var(--s);
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    margin-right: 8px;
+}
+
+.signin-btn:hover, .header-signup-link:hover{
+    background-color: var(--t) ;
+    transition: background 125ms ease-in ;
+}
+
+.user-header-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signin-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90vh;
+    overflow-y: hidden;
+}
+
+.modal-overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.signin-bg{
+    background-color: rgb(250, 254, 255);
+    display: flex;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.signin-bg form{
+    padding: 1.5rem;
+}
+
+.signin-bg .signup-suggest{
+    padding: 1.5rem;
+}
+
+.signin-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-form .form-input{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.signin-form .form-input:nth-child(2){
+    margin-top: 1rem;
+}
+
+.signin-form .form-input input{
+    padding: 0.5rem;
+    margin-top: 0.4rem;
+    border: none;
+    border-bottom: 1px solid var(--s);
+    width: 20rem;
+}
+
+.signin-bg input[type="submit"]{
+    padding: 0.6rem 0.8rem;
+    background-color: var(--s);
+    border-radius: 5px;
+    border: none;
+    margin-top: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.signup-suggest{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-suggest .signup-link{
+    padding: 0.6rem 0.8rem;
+    background-color: var(--s);
+    border-radius: 5px;
+    border: none;
+    margin-top: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.close-btn{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    border: none;
+    background: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
