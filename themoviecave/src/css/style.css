@@ -119,33 +119,60 @@ body{
 
 /********** FOOTER **********/
 
-.footer{
-    border-top: 1px dotted #fff;
+footer{
+    background: rgba(255, 255, 255, 0.05);
 }
 .page-footer{
     display: grid;
+    grid-template-columns: 25% 75%;
     grid-template-rows: 1fr;
     width: 70%;
     margin: auto;
     height: 30vh;
-    border-top: 1px dotted #fff;
+}
+
+.footer-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-media-links{
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    gap: 4rem;
+}
+
+.media-link{
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .footer-links{
-    display: flex;
-    justify-content: space-around;
-    border: 1px solid #fff;
-    padding: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    gap: 3rem;
+    margin-top: 1rem;
 }
 
-/* .footer-media-links{
-    display: ;
-} */
+.footer-logo-link{
+    display: grid;
+}
 
 .footer-logo-link img{
-    width: 25%;
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
 }
 
 .ipc-icon{
     color: #fff;
+}
+
+.ipc-icon:hover{
+    color: var(--t);
+    transition: color 150ms ease-in-out;
 }

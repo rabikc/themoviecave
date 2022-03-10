@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import {img_300} from '../config';
+import {img_300, unavailable} from '../config';
 import '../css/movies.css'
 import CustomPage from './CustomPage';
 import Genres from './Genre';
@@ -54,7 +54,7 @@ const Movies = () => {
               <div className="single-content">
                 <span className="content-id">{x.id}</span>
                 <Link className="content-image-link" to="#">
-                  <img src={`${img_300}/${x.poster_path}`} alt="Movie" />
+                  <img src={x.poster ? unavailable : `${img_300}/${x.poster_path}`} alt={x.title} />
                 </Link>
                 {/* {
                   x.media_type === "tv"

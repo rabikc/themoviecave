@@ -1,5 +1,4 @@
 .trending-section{
-    background-color: aliceblue;
     padding: 1rem;
     width: 100%;
 }
@@ -10,10 +9,24 @@
     grid-template-rows: 1fr;
     gap: 1rem;
     overflow: auto;
+    margin-top: 1.5rem;
+}
+
+.trending-container h1{
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.trending-container h1 svg{
+    width: 40px;
+    margin-left: .4rem;
+    color: var(--t);
 }
 
 .trending-single-content{
-    margin: 1rem 1rem 0 0;
+    margin-right: 1rem;
     width: 175px;
     display: flex;
     flex-direction: column;
@@ -45,7 +58,7 @@
 }
 
 .trending-single-content .content-title{
-    color: #000;
+    margin-top: 0.5rem;
     font-weight: 700;
 }
 
@@ -103,10 +116,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    color: #fff;
+}
+
+.content-date{
+    color: #AAADB2;
+    margin-bottom: 0.5rem;
 }
 
 .content-rating-section .content-rating{
-    /* padding: 0.1rem 0.2rem; */
     margin-right: 0.2rem;
 }
 .content-rating-section .star-svg{

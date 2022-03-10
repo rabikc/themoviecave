@@ -61,6 +61,11 @@
     align-items: center;
 }
 
+.header-links a:hover{
+    color: var(--a);
+    transition: color 150ms ease-in-out;
+}
+
 .header-links li a{
     display: inline-block;
     width: 100%;

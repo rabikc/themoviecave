@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {img_300} from '../config';
+import {img_300, unavailable} from '../config';
 import '../css/trending.css';
 import { Link } from "react-router-dom";
 
@@ -23,14 +23,17 @@ const Trending = () => {
   return (
   <section className='trending-section'>
     <div className="container trending-container">
-      <h1>Trending</h1>
+      <h1>
+        Trending 
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+      </h1>
       <div className="trending-flex-display">
         {
           content && content.map((x) =>
           <div to = "#" className="trending-single-content">
             <span className="content-id">{x.id}</span>
             <Link className="trending-image-link" to="#">
-              <img src={`${img_300}/${x.poster_path}`} alt="Movie" />
+              <img src={x.poster ? unavailable : `${img_300}/${x.poster_path}`} alt={x.title || x.name} />
             </Link>
             {
               x.media_type === "tv"
