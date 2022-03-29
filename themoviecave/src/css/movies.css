@@ -13,6 +13,48 @@
     height: auto;
 }
 
+.search-section{
+    display: flex;
+    margin-bottom: 2rem;
+    flex-direction: column;
+}
+
+.search-section h1{
+    color: #fff;
+}
+
+input:focus{
+    outline: none;
+}
+
+.search-form{
+    margin-top: 1.2rem;
+    display: flex;
+}
+
+.search-section input{
+    width: 17rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-section button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--t);
+    border: none;
+    width: 2rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    padding: 0 0.2rem ;
+}
+
+.search-section button:hover{
+    background-color: var(--t);
+    transition: background-color 150ms ease-in-out;
+}
+
 .genre-section .genre-title{
     margin-bottom: 1rem;
     color: #fff;

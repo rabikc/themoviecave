@@ -28,7 +28,7 @@ const Header = () => {
             </div>
             <ul className="header-links">
                 <li>
-                    <Link to="/movies">Movies</Link>
+                    <Link to="/movie">Movies</Link>
                 </li>
                 <li>
                     <Link to="/tv">TV</Link>
