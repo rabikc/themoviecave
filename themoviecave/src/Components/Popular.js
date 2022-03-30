@@ -24,7 +24,7 @@ const Popular = () => {
 
   return (
     <section className='popular-section'>
-    <div className="container trending-container">
+    {/* <div className="container trending-container">
       <h1>Popular</h1>
       <div className="trending-flex-display">
         {
@@ -51,7 +51,7 @@ const Popular = () => {
           )
         }
       </div>
-    </div>
+    </div> */}
   </section>
   )
 }

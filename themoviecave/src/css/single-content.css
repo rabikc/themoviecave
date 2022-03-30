@@ -1,0 +1,148 @@
+.backdrop-section{
+    position: relative;
+}
+.content-backdrop{
+    height: 60vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.backdrop-content{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 70%;
+}
+
+.upper-backdrop{
+    display: flex;
+    /* border: 1px solid white; */
+}
+
+.content-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: .3rem .8rem;
+    align-items: flex-start;
+    /* border: 1px solid white; */
+    color: #fff;
+    margin-left: 1.5rem;
+}
+
+.top-backdrop-content{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 7rem;
+}
+
+.top-backdrop-content .titles{
+    margin-right: 2rem;
+}
+
+.top-backdrop-content > h2{
+    margin-top: 0.7rem;
+}
+
+.bottom-backdrop{
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.details-genre{
+    margin-right: 1rem;
+}
+
+.details-genre span{
+    margin-right: 1.2rem;
+}
+
+.user-functions{
+    display: flex;
+}
+
+.user-functions svg{
+    margin-right: 1rem;
+    width: 30px;
+    cursor: pointer;
+    background-color: var(--s);
+    padding: 0.25rem;
+    border-radius: 50%;
+}
+
+.details-genre span:last-child{
+    margin-right: 0rem;
+}
+
+.details-genre span:last-child::after{
+    content: ".";
+}
+
+.content-runtime{
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+    margin-right: 2rem;
+    color: var(--t);
+}
+
+.content-details .titles{
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-content-title{
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+
+.content-release-date{
+    font-size: 1.4rem;
+    color: #AAADB2;
+}
+
+.content-tagline{
+    font-size: 1.2rem;
+    color: #c7c7c7;
+}
+
+.content-original-image{
+    width: 225px;
+    border: 2px solid var(--t);
+}
+
+.backdrop-content-rating{
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-container{
+    display: flex;
+    align-items: flex-end;
+    margin-top: 0.5rem;
+}
+
+.rating-container svg{
+    width: 18px;
+    color: var(--t);
+    margin-left: 0.2rem;
+}
+
+.vote-count{
+    font-size: 0.75rem;
+    color: var(--t);
+}
+
+.content-overview-section{
+    margin-top: 1rem;
+    padding: 0.5rem;
+    color: #fff;
+}
+
+.overview-content{
+    margin-top: 0.5rem;
+}

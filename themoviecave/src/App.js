@@ -6,7 +6,7 @@ import SignUp from './Components/SignUp';
 import Discover from './Components/Discover';
 import Movies from './Components/Movies';
 import Tv from './Components/Tv';
-import SingleContent from './Components/SingleContent';
+import SingleContent from './Components/Detail/SingleContent';
 
 function App() {
   return (
@@ -19,8 +19,7 @@ function App() {
           <Route exact path="/discover" element= {<Discover/>}/>
           <Route exact path="/movie" element= {<Movies/>}/>
           <Route exact path="/tv" element= {<Tv/>}/>
-          {/* <Route exact path="" element= {<SingleContent/>}/> */}
-          {/* <Route path="*" element={<NotFound/>}/> */}
+          <Route path='/:category/:id/:title' element={<SingleContent/>}/>
         </Routes>
       </div>
     </Router>  
