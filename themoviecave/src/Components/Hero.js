@@ -1,8 +1,8 @@
 import '../css/style.css'
 import { Link } from 'react-router-dom';
 import Trending from './Trending'
-import Popular from './Popular'
 import Footer from './Footer';
+import Popular from './Popular';
 import { SignUpBox } from './SignUpBox';
 
 const Hero = () => {

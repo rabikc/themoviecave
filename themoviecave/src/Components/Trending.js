@@ -29,8 +29,8 @@ const Trending = () => {
       </h1>
       <div className="trending-flex-display">
         {
-          content && content.map((x) =>
-          <div to = "#" className="trending-single-content">
+          content && content.map((x,i) =>
+          <div to = "#" className="trending-single-content" key={i}>
             <span className="content-id">{x.id}</span>
             <Link to={`/${x.media_type}/${x.id}/${x.title || x.name}`} className="trending-image-link">
               <img src={x.poster_path ? `${img_300}/${x.poster_path}` : unavailable} alt={x.title || x.name} />

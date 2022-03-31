@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { img_300, img_500, unavailable, original } from '../../config';
 import "../../css/single-content.css";
+import Cast from './Cast'
 
 const ContentBackdrop = () => {
 
@@ -29,8 +30,6 @@ const ContentBackdrop = () => {
     tmdbAPI()
 
   }, [category, id]);
-
-
 
   return (
     <>

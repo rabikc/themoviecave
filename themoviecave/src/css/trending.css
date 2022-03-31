@@ -133,3 +133,12 @@
     color: rgb(192, 192, 0);
 }
 
+/******* POPULAR SECTION ********/
+
+.popular-section > h1{
+    color: white;
+}
+
+.popular-section{
+    margin-top: 1.5rem;
+}

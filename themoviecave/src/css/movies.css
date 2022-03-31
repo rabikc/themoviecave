@@ -60,6 +60,37 @@ input:focus{
     color: #fff;
 }
 
+.sort-by{
+    margin-top: 1.5rem;
+}
+
+.sort-by .sort-title{
+    color: #fff;
+}
+
+.sort-by button{
+    background-color: var(--t);
+    padding: 0.2rem .4rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.sort-by button:hover{
+    background-color: var(--a);
+    color: black;
+    transition: all 150ms ease-in-out;
+}
+
+.top-rated-btn, .popular-btn{
+    margin-right: 0.6rem;
+}
+
+.sort-categories{
+    margin-top: 1rem;
+}
+
 .movies-content-flex{
     display: flex;
     flex-direction: column;

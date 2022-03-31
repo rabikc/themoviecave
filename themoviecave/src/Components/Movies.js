@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import {img_300, unavailable} from '../config';
+import { img_300, unavailable } from '../config';
 import '../css/movies.css'
 import CustomPage from './CustomPage';
 import Genres from './Genre';
@@ -10,9 +10,9 @@ import Search from './Search'
 
 
 const Movies = () => {
-  
+
   const [page, setPage] = useState(1);
-  const [content, setContent] = useState ([]);
+  const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState();
   const [genres, setGenres] = useState([])
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -22,7 +22,7 @@ const Movies = () => {
 
   const fetchMovies = async () => {
 
-    const  { data } = await axios.get(
+    const { data } = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US
       &sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
     )
@@ -34,22 +34,22 @@ const Movies = () => {
   useEffect(() => {
     fetchMovies()
   }, [page, genreforURL])
-  
+
   const search = async (e) => {
-    try{
-      const  { data } = await axios.get(
+    try {
+      const { data } = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       )
       setContent(data.results);
       setNumOfPages(data.total_pages)
     }
-    catch(error) {
+    catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     search()
   }, [page])
 
@@ -57,47 +57,114 @@ const Movies = () => {
     e.preventDefault();
   };
 
-//   const handleKeypress = (e) => {
-//     //it triggers by pressing the enter key
-//   if (e.keyCode === 13) {
-//     search()
-//   }
-// };
+  const top = async (e) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&${page}`
+      )
+      setContent(data.results);
+      setNumOfPages(data.total_pages);
+      console.log(data)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
-  return( 
-      <section className='movies-display-section'>
-        <aside className='movies-sidebar'>
-          <div className='genre-section'>
-          <div className='search-section'>
-            <h1 className="search-header">
-              Search for movie
-            </h1>
-            <form className="search-form" onSubmit={onSubmit}>
+  useEffect(() => {
+    window.scroll(0, 0);
+    top()
+  }, [page])
+
+  const popular = async (e) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/popular?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US${page}`
+      )
+      setContent(data.results);
+      setNumOfPages(data.total_pages);
+      console.log(data)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    popular()
+  }, [page])
+
+  const upcoming = async (e) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&${page}`
+      )
+      setContent(data.results);
+      setNumOfPages(data.total_pages);
+      console.log(data)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    upcoming()
+  }, [page])
+
+  //   const handleKeypress = (e) => {
+  //     //it triggers by pressing the enter key
+  //   if (e.keyCode === 13) {
+  //     search()
+  //   }
+  // };
+
+  return (
+    <section className='movies-display-section'>
+      <aside className='movies-sidebar'>
+        <div className='search-section'>
+          <h1 className="search-header">
+            Search for movie
+          </h1>
+          <form className="search-form" onSubmit={onSubmit}>
             {/* onKeyPress={(e) => search(e)} */}
             {/* onKeyPress={handleKeypress} */}
-              <input type="text" label="Search" onChange={(e) => setSearchText(e.target.value)}/>
-              <button onClick={search}>
-                  <svg className="w-6 h-6 search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                    </path>
-                  </svg>
-              </button>
-            </form>
-          </div>
-            <h1 className="genre-title">Genres</h1>
-            <Genres 
+            <input type="text" label="Search" onChange={(e) => setSearchText(e.target.value)} />
+            <button onClick={search}>
+              <svg className="w-6 h-6 search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                </path>
+              </svg>
+            </button>
+          </form>
+        </div>
+        <div className='genre-section'>
+          <h1 className="genre-title">Genres</h1>
+          <Genres
             type="movie"
-            selectedGenres = {selectedGenres} 
-            setSelectedGenres = {setSelectedGenres}
-            genres = {genres} 
-            setGenres = {setGenres}
-            setPage = {setPage}
-            />
+            selectedGenres={selectedGenres}
+            setSelectedGenres={setSelectedGenres}
+            genres={genres}
+            setGenres={setGenres}
+            setPage={setPage}
+          />
+        </div>
+        <div className="sort-by">
+          <h1 className="sort-title">
+            Sort By
+          </h1>
+          <div className="sort-categories">
+            <button onClick={top} className='top-rated-btn'>Top Rated</button>
+            <button onClick={popular} className='popular-btn'>Popular</button>
+            <button onClick={upcoming} className='upcoming-btn'>Upcoming</button>
           </div>
-        </aside>
-        <div className="movies-content-flex">
+        </div>
+      </aside>
+      <div className="movies-content-flex">
         <div className="movies-content-grid">
-            {
+          {
             content && content.map((x) =>
               <div className="single-content">
                 <span className="content-id">{x.id}</span>
@@ -127,17 +194,17 @@ const Movies = () => {
                   <span className="content-date">{x.release_date}</span>
                 </div>
               </div>
-              )
-            }
-          </div>
-          {searchText && !content && (
-              <h1>No Results Found</h1>
-            )}
-          {numOfPages > 1 && (
-            <CustomPage style = {{color:"secondary"}} className='pagination' setPage={setPage} numOfPages={numOfPages}/>
-          )}
+            )
+          }
         </div>
-      </section>);
+        {searchText && !content && (
+          <h1>No Results Found</h1>
+        )}
+        {numOfPages > 1 && (
+          <CustomPage style={{ color: "secondary" }} className='pagination' setPage={setPage} numOfPages={numOfPages} />
+        )}
+      </div>
+    </section>);
 };
 
 export default Movies;
