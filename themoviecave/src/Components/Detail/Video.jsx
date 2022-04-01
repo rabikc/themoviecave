@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { useState } from 'react';
 import axios from 'axios';
-import { img_300, img_500, unavailable, original } from '../../config';
 import "../../css/single-content.css";
 
 const Video = () => {
@@ -36,6 +35,10 @@ const Video = () => {
             </h1>
             <div className="videos">
                 {
+                    content && content.length === 0
+                    ?
+                    <h2 className='video-na'>Videos are not available</h2>
+                    :
                     content && content.slice(0, 4).map((v, i) =>
                         <div className="iframe-video" key={i}>
                             <iframe src={`https://www.youtube.com/embed/${v.key}`} frameBorder="0"></iframe>

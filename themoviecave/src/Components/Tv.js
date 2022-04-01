@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { img_300, unavailable } from '../config';
 import '../css/movies.css'

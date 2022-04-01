@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from "react-router-dom";
 import { useState } from 'react';
 import axios from 'axios';
-import { img_300, img_500, unavailable, original } from '../../config';
 import "../../css/single-content.css";
 
 const Keywords = () => {
@@ -29,6 +28,7 @@ const Keywords = () => {
     tmdbAPI()
 
   }, [category, id]);
+
   return (
     <div className='keywords-section'>
       <h1 className="keywords-title">
@@ -36,6 +36,10 @@ const Keywords = () => {
       </h1>
       <div className="keywords">
         {
+          // keyWords && keyWords.length === 0
+          // ?
+          // <h2>No keywords available</h2>
+          // :
           category === "movie"
             ?
             keyWords && keyWords.keywords.slice(0, 10).map((k, i) =>

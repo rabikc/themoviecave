@@ -5,7 +5,7 @@
 
 .trending-flex-display{
     display: grid;
-    grid-template-columns: repeat(20,1fr);
+    grid-template-columns: repeat(20,180px);
     grid-template-rows: 1fr;
     gap: 0.5rem;
     overflow: auto;
@@ -49,7 +49,7 @@
 
 .trending-single-content img{
     width: 100%;
-    height: 270px;
+    /* height: 270px; */
     border-radius: 8px;
 }
 

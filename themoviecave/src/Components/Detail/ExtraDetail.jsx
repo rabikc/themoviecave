@@ -94,11 +94,7 @@ const ContentBackdrop = () => {
                 content.spoken_languages.map((l, i) =>
                 <span key={i} className='language'>
                     {
-                      i === i.length - 1
-                      ?
                       l.english_name
-                      :
-                      l.english_name + ", "
                     }
                 </span>
                 )}
