@@ -1,29 +1,61 @@
 import '../css/signup.css';
+import React, { useState, useEffect } from 'react';
 
 const SignUp = () => {
-  return(
+
+  const [signUp, setSignUp] = useState({ name: '', username: '', email: '', password: '' });
+
+  const { name, username, email, password } = signUp;
+
+  const changeHandler = e => {
+    setSignUp({ ...signUp, [e.target.name]: e.target.value });
+  }
+
+
+  const submitHandler = e => {
+
+    e.preventDefault();
+
+    console.log(signUp);
+
+    fetch('http://127.0.0.1:8000/api/users/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(signUp),
+    }).then(data => data.json()).then(
+      data => {
+        console.log(data.token);
+      }
+    ).catch(error => console.error(error))
+  }
+
+  return (
     <section className="signup-section">
       <div className="signup-overlay"></div>
-              <div className="signup-bg">
-                <form action="#">
-                  <h1 className='signup-title'>Sign Up</h1>
-                  <div className="signup-form">
-                  <div className="form-input">
-                      <label htmlFor="Name">Full Name</label>
-                      <input type="text" name='Name'/>
-                    </div>
-                    <div className="form-input">
-                      <label htmlFor="Email">Email</label>
-                      <input type="email" name='Email' />
-                    </div>
-                    <div className="form-input">
-                      <label htmlFor="Password">Password</label>
-                      <input type="password" name='Password' />
-                    </div>
-                  </div>
-                  <input type="submit" value="Sign Up"/>
-                </form>
-              </div>
+      <div className="signup-bg">
+        <form onSubmit={submitHandler}>
+          <h1 className='signup-title'>Sign Up</h1>
+          <div className="signup-form">
+            <div className="form-input">
+              <label htmlFor="Name">Name</label>
+              <input type="text" name='name' value={name} onChange={changeHandler}/>
+            </div>
+            <div className="form-input">
+              <label htmlFor="Name">Username</label>
+              <input type="text" name='username' value={username} onChange={changeHandler}/>
+            </div>
+            <div className="form-input">
+              <label htmlFor="Email">Email</label>
+              <input type="email" name='email' value={email} onChange={changeHandler}/>
+            </div>
+            <div className="form-input">
+              <label htmlFor="Password">Password</label>
+              <input type="password" name='password' value={password} onChange={changeHandler}/>
+            </div>
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     </section>
   )
 

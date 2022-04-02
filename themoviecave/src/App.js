@@ -1,5 +1,6 @@
 import './css/style.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 import Header from './Components/Header';
 import Hero from './Components/Hero';
 import SignUp from './Components/SignUp';
@@ -7,6 +8,9 @@ import Discover from './Components/Discover';
 import Movies from './Components/Movies';
 import Tv from './Components/Tv';
 import SingleContent from './Components/Detail/SingleContent';
+
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 function App() {
   return (
