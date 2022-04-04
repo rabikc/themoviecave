@@ -1,11 +1,12 @@
 import '../css/signup.css';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 
 const SignUp = () => {
 
-  const [signUp, setSignUp] = useState({ name: '', username: '', email: '', password: '' });
+  const [signUp, setSignUp] = useState({ first_name: '', last_name:'', username: '', email: '', password: '' });
 
-  const { name, username, email, password } = signUp;
+  const { first_name,last_name, username, email, password } = signUp;
 
   const changeHandler = e => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
@@ -22,11 +23,10 @@ const SignUp = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(signUp),
-    }).then(data => data.json()).then(
-      data => {
-        console.log(data.token);
-      }
-    ).catch(error => console.error(error))
+    }).then(data => data.json())
+    .catch(error => console.error(error))
+
+    setSignUp({first_name: '', last_name:'', username: '', email: '', password: '' })
   }
 
   return (
@@ -36,9 +36,13 @@ const SignUp = () => {
         <form onSubmit={submitHandler}>
           <h1 className='signup-title'>Sign Up</h1>
           <div className="signup-form">
+          <div className="form-input">
+              <label htmlFor="Name">First Name</label>
+              <input type="text" name='first_name' value={first_name} onChange={changeHandler}/>
+            </div>
             <div className="form-input">
-              <label htmlFor="Name">Name</label>
-              <input type="text" name='name' value={name} onChange={changeHandler}/>
+              <label htmlFor="Name">Last Name</label>
+              <input type="text" name='last_name' value={last_name} onChange={changeHandler}/>
             </div>
             <div className="form-input">
               <label htmlFor="Name">Username</label>

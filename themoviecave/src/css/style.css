@@ -1,31 +1,54 @@
-:root{
+:root {
     --m: #072227;
     --s: #35858b;
     --t: #4fbdba;
     --a: #aefeff;
 }
 
-*{
+
+/***** Scroll ******/
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+}
+
+
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-a{
+a {
     color: #fff;
     text-decoration: none;
     cursor: pointer;
 }
 
-li{
+li {
     list-style: none;
 }
 
-body{
+body {
     background-color: var(--m);
 }
 
-.hero-section{
+.hero-section {
     position: relative;
     width: 100%;
     height: 89vh;
@@ -33,14 +56,14 @@ body{
     background-size: cover;
 }
 
-.hero-overlay{
+.hero-overlay {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: -1000;
 }
 
-.hero-content-section{
+.hero-content-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,35 +73,35 @@ body{
     padding: 2rem;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     text-align: center;
 }
 
-.hero-content-section .main-title{
+.hero-content-section .main-title {
     font-size: 2.5rem;
 }
 
-.hero-content-section .subtitle{
+.hero-content-section .subtitle {
     margin-bottom: 2rem;
 }
 
-.hero-content-section a{
+.hero-content-section a {
     font-size: 1.2rem;
     padding: 0.7rem;
     border-radius: 5px;
     background: var(--s);
 }
 
-.hero-content-section a:hover{
+.hero-content-section a:hover {
     background: var(--t);
-    transition: background 125ms ease-in ;
+    transition: background 125ms ease-in;
 }
 
-.signup-box{
+.signup-box {
     display: grid;
     grid-template-columns: 1fr 0.4fr;
     gap: 1rem;
-    width:88%;
+    width: 88%;
     margin: 2rem auto;
     background: url(../../public/images/sign-up-bg.jpg) center no-repeat;
     background-size: cover;
@@ -86,17 +109,18 @@ body{
     color: #fff;
 }
 
-.signup-first-section .section-title{
+.signup-first-section .section-title {
     margin-bottom: 1rem;
 }
-.signup-first-section{
+
+.signup-first-section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.signup-box .signup-box-button{
+.signup-box .signup-box-button {
     background-color: var(--s);
     padding: 0.7rem 1rem;
     border-radius: 5px;
@@ -104,25 +128,26 @@ body{
     display: inline-block;
 }
 
-.signup-btn-section{
+.signup-btn-section {
     border: 1px solid white;
 }
 
-.signup-list{
+.signup-list {
     margin-top: 1rem;
 }
 
-.signup-list li{
+.signup-list li {
     list-style: disc;
 }
 
 
 /********** FOOTER **********/
 
-footer{
+footer {
     background: rgba(255, 255, 255, 0.05);
 }
-.page-footer{
+
+.page-footer {
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 1fr;
@@ -131,48 +156,48 @@ footer{
     height: 30vh;
 }
 
-.footer-content{
+.footer-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.footer-media-links{
+.footer-media-links {
     display: grid;
-    grid-template-columns: repeat(4,auto);
+    grid-template-columns: repeat(4, auto);
     gap: 4rem;
 }
 
-.media-link{
+.media-link {
     display: grid;
     align-items: center;
     justify-items: center;
 }
 
-.footer-links{
+.footer-links {
     display: grid;
-    grid-template-columns: repeat(4,auto);
+    grid-template-columns: repeat(4, auto);
     gap: 3rem;
     margin-top: 1rem;
 }
 
-.footer-logo-link{
+.footer-logo-link {
     display: grid;
 }
 
-.footer-logo-link img{
+.footer-logo-link img {
     width: 100%;
     display: flex;
     justify-self: center;
     align-self: center;
 }
 
-.ipc-icon{
+.ipc-icon {
     color: #fff;
 }
 
-.ipc-icon:hover{
+.ipc-icon:hover {
     color: var(--t);
     transition: color 150ms ease-in-out;
 }

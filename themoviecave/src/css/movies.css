@@ -111,7 +111,7 @@ input:focus{
     flex-direction: column;
     position: relative;
     border-radius: 8px;
-    border: 1px solid var(--t);
+    border: 0.1px solid var(--t);
 }   
 
 .single-content .content-id{

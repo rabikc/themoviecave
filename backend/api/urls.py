@@ -2,11 +2,22 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import UserViewSet
+from . import views
+from .views import UserViewSet, MyTokenObtainPairView
+# from .views import RegisterAPI
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', views.getRoutes),
+    path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
+# include(router.urls)

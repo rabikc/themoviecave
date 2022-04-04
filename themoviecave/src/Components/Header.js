@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import '../css/header.css';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const Header = () => {
 
-  const [modal, setModal] = useState(false);
+  let {name} = useContext(AuthContext)
+
+  
   const [signIn, setSignIn] = useState({ username: '', password: '' });
 
   const { username, password } = signIn;
@@ -29,10 +32,6 @@ const Header = () => {
         console.log(data);
       }
     ).catch(error => console.error(error))
-  }
-
-  const toggleModal = () => {
-    setModal(!modal)
   }
 
   // const login = () => (
@@ -67,39 +66,12 @@ const Header = () => {
           </ul>
           <div className="user-header-links">
             <Link to="/signup" className="header-signup-link">Join TMC</Link>
-            <button className='signin-btn' onClick={toggleModal}>
+            {/* <Link className='signin-btn'>
               Sign In
-            </button>
+            </Link> */}
           </div>
         </nav>
       </header>
-      {modal && (
-        <section className="signin-section container">
-          <div className="modal-overlay" onClick={toggleModal}></div>
-          <div className="signin-bg">
-            <form onSubmit={submitHandler}>
-              <h1 className='signin-title'>Sign In</h1>
-              <div className="signin-form">
-                <div className="form-input">
-                  <label htmlFor="Username">Username</label>
-                  <input type="text" name='username' value={username} onChange={changeHandler} />
-                </div>
-                <div className="form-input">
-                  <label htmlFor="Password">Password</label>
-                  <input type="password" name='password' value={password} onChange={changeHandler} />
-                </div>
-              </div>
-              <input type="submit" name='submit' />
-            </form>
-            <div className="signup-suggest">
-              <h1>Don't have an account yet?</h1>
-              <h2>Join us here</h2>
-              <Link to="/signup" className='signup-link' onClick={toggleModal}>Sign Up</Link>
-              <button className='close-btn' onClick={toggleModal}>X</button>
-            </div>
-          </div>
-        </section>
-      )}
     </>
   )
 };
