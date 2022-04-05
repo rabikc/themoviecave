@@ -1,4 +1,6 @@
 import {createContext, useState, useEffect} from 'react'
+import jwt_decode from 'jwt-decode';
+import { useNavigate} from 'react-router-dom'
 
 const AuthContext = createContext()
 
@@ -7,8 +9,24 @@ export default AuthContext
 
 export const AuthProvider = ({children}) => {
 
-    let [user, setUser] = useState(null)
-    let [tokens, setTokens] = useState(null)
+
+    let [user, setUser] = useState( () =>
+    localStorage.getItem('tokens')
+    ?
+    localStorage.getItem('tokens') 
+    :
+    null)
+
+    let [tokens, setTokens] = useState(() => 
+    localStorage.getItem('tokens')
+    ?
+    JSON.parse(localStorage.getItem('tokens'))
+    :
+    null)
+
+    let [loading, setLoading] = useState(true)
+
+    const navigate = useNavigate();
 
     let loginUser = async( e ) =>{
 
@@ -20,20 +38,91 @@ export const AuthProvider = ({children}) => {
             headers:{
                 'Content-Type':'application/json'
             },
-            body: JSON.stringify({'username':e.target.username.value, 'password': e.target.username.value})
+            body: JSON.stringify({'username':e.target.username.value, 'password': e.target.password.value})
         }
-        )
+        ).then(data => data.json()).then(
+            data => {
+                setTokens(data)
 
-        let data = await response.json()
-        console.log('data:',data)
+                setUser( jwt_decode(data.access))
+
+                localStorage.setItem('tokens', JSON.stringify(data))
+
+                navigate('/')
+
+              console.log(data);
+            }
+          ).catch(error => console.error(error))
+    }
+
+    let logOut = () => {
+        setTokens(null)
+        setUser(null)
+        localStorage.removeItem('tokens')
+        navigate('/')
+    }
+
+    let updateToken = async () => {
+
+        let response = fetch('http://127.0.0.1:8000/api/token/refresh/',
+        {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({'refresh': tokens?.refresh})
+        }
+        ).then(data => data.json()).then(
+            data => {
+                setTokens(data)
+
+                setUser( jwt_decode(data.access))
+
+                localStorage.setItem('tokens', JSON.stringify(data))
+
+            }
+          ).catch(error => {
+            setTokens(null)
+            setUser(null)
+            localStorage.removeItem('tokens')
+            navigate('/')  
+            console.error(error)})
+
+        if(loading){
+            setLoading(false)
+        }
+
     }
 
     let contextData = {
-        loginUser:loginUser
+        user:user,
+        tokens:tokens,
+        loginUser:loginUser,
+        logOut:logOut,
+
     }
+
+    useEffect(() => {
+
+        if(loading){
+            updateToken()
+        }
+
+        let fourMinutes = 1000 * 600 * 4
+
+        let interval = setInterval(() => {
+            if(tokens){
+                updateToken()
+            }
+        }, fourMinutes)
+
+        return () => clearInterval(interval)
+
+    },[tokens, loading])
+
     return(
         <AuthContext.Provider value={{contextData}}>
-            {children}
+            {loading ? null : children}
         </AuthContext.Provider>
     )
 }

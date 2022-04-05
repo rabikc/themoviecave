@@ -1,17 +1,22 @@
-import { Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useContext } from 'react'
 
 import React from 'react'
+import AuthContext from '../context/AuthContext'
 
-const PrivateRoute = ({children}) => {
+const PrivateRoute = ({children, ...rest}) => {
 
-    const isAthenticated = true
-
-    if (isAthenticated){
-        return children
-    }
+  let {contextData} = useContext(AuthContext)
 
   return (
-    <Navigate to= "/"/>
+    <Routes>
+          <Route {...rest}> 
+      {!contextData.user 
+      ? <Navigate to = "/"/> 
+      : children 
+      }
+    </Route>
+    </Routes>
   )
 }
 

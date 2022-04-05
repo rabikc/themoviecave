@@ -6,10 +6,14 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from .serializers import WatchListSerializer
+from .models import WatchList
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -18,7 +22,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
-        # ...
 
         return token
 
@@ -32,6 +35,14 @@ def getRoutes(request):
         '/api/token/refresh'
     ]
     return Response(routes)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getWatchlist(request):
+    user = request.user
+    watchlists = user.watchlist_set.all()
+    serializer = WatchListSerializer(watchlists, many = True)
+    return Response(serializer.data)
 
 
 class UserViewSet(viewsets.ModelViewSet):

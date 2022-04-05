@@ -1,5 +1,7 @@
 from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
+from .models import WatchList
 from rest_framework.authtoken.models import Token
 
 
@@ -17,6 +19,12 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
 
         return user
+
+
+class WatchListSerializer(ModelSerializer):
+    class Meta:
+        model = WatchList
+        fields = '__all__'
 
 # Register Serializer
 

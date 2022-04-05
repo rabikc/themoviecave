@@ -1,17 +1,18 @@
 import React, {useContext} from 'react'
 import {Link} from 'react-router-dom'
+
 import AuthContext from '../context/AuthContext'
 import '../css/style.css'
 
 const SignIn = () => {
 
-    let {loginUser} = useContext(AuthContext)
+    let {contextData} = useContext(AuthContext);
 
   return (
     <section className="signin-section container">
           <div className="modal-overlay"></div>
           <div className="signin-bg">
-            <form onSubmit={loginUser}>
+            <form  onSubmit={contextData.loginUser}>
               <h1 className='signin-title'>Sign In</h1>
               <div className="signin-form">
                 <div className="form-input">

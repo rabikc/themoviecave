@@ -5,34 +5,34 @@ import AuthContext from '../context/AuthContext';
 
 const Header = () => {
 
-  let {name} = useContext(AuthContext)
+  let {contextData} = useContext(AuthContext)
 
   
-  const [signIn, setSignIn] = useState({ username: '', password: '' });
+  // const [signIn, setSignIn] = useState({ username: '', password: '' });
 
-  const { username, password } = signIn;
+  // const { username, password } = signIn;
 
-  const changeHandler = e => {
-    setSignIn({ ...signIn, [e.target.name]: e.target.value });
-  }
+  // const changeHandler = e => {
+  //   setSignIn({ ...signIn, [e.target.name]: e.target.value });
+  // }
 
 
-  const submitHandler = e => {
+  // const submitHandler = e => {
 
-    e.preventDefault();
+  //   e.preventDefault();
 
-    console.log(signIn);
+  //   console.log(signIn);
 
-    fetch('http://127.0.0.1:8000/auth/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(signIn),
-    }).then(data => data.json()).then(
-      data => {
-        console.log(data);
-      }
-    ).catch(error => console.error(error))
-  }
+  //   fetch('http://127.0.0.1:8000/auth/', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(signIn),
+  //   }).then(data => data.json()).then(
+  //     data => {
+  //       console.log(data);
+  //     }
+  //   ).catch(error => console.error(error))
+  // }
 
   // const login = () => (
   //   console.log("logged in")
@@ -65,10 +65,28 @@ const Header = () => {
             </li>
           </ul>
           <div className="user-header-links">
-            <Link to="/signup" className="header-signup-link">Join TMC</Link>
-            {/* <Link className='signin-btn'>
-              Sign In
-            </Link> */}
+            {
+              contextData.user
+              ?
+              (<span onClick={contextData.logOut}> Log Out</span>)
+              :
+              (
+                <>
+                  <Link className='signin-btn' to= "/signin">
+                    Sign In
+                  </Link>
+                  <Link to="/signup" className="header-signup-link">
+                    Join TMC
+                  </Link>
+                
+                
+                </>
+              )
+            }
+            {
+              contextData.user && 
+              <p>{contextData.user.username}</p>
+            }
           </div>
         </nav>
       </header>

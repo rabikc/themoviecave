@@ -19,11 +19,11 @@ import SingleContent from './Components/Detail/SingleContent';
 function App() {
   return (
     <div className="App">
-       <AuthProvider>
       <Router>
+      <AuthProvider>
        <Header/>
         <Routes>
-          <Route exact path="/" element= {<PrivateRoute> <Hero/> </PrivateRoute>}/>
+          <Route exact path="/" element= { <Hero/>}/>
           <Route exact path="/signup" element= {<SignUp/>}/>
           <Route exact path="/discover" element= {<Discover/>}/>
           <Route exact path="/movie" element= {<Movies/>}/>
@@ -31,8 +31,8 @@ function App() {
           <Route exact path="/signin" element= {<SignIn/>}/>
           <Route path='/:category/:id/:title' element={<SingleContent/>}/>
         </Routes>
+        </AuthProvider>
       </Router> 
-      </AuthProvider>
     </div> 
   );
 }
