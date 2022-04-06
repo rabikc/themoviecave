@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom"
 import '../css/style.css'
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 
 export const SignUpBox = () => {
+
+    let {contextData} = useContext(AuthContext)
+    
   return (
+      <>
+      {
+        contextData.user
+          ?
+          <div>Hello</div>
+          :
     <section className='signup-box'>
         {/* <div className="signup-box-content">
 
@@ -33,5 +44,7 @@ export const SignUpBox = () => {
             </ul>
         </div>
     </section>
+}
+    </>
   )
 }

@@ -23,7 +23,7 @@ const Movies = () => {
   const fetchMovies = async () => {
 
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US
       &sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
     )
     setContent(data.results);
@@ -38,10 +38,11 @@ const Movies = () => {
   const search = async (e) => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       )
       setContent(data.results);
       setNumOfPages(data.total_pages)
+      setSearchText(" ")
     }
     catch (error) {
       console.log(error)
@@ -60,7 +61,7 @@ const Movies = () => {
   const top = async (e) => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&${page}`
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&${page}`
       )
       setContent(data.results);
       setNumOfPages(data.total_pages);
@@ -79,7 +80,7 @@ const Movies = () => {
   const popular = async (e) => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US${page}`
+        `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US${page}`
       )
       setContent(data.results);
       setNumOfPages(data.total_pages);
@@ -98,7 +99,7 @@ const Movies = () => {
   const upcoming = async (e) => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US&${page}`
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&${page}`
       )
       setContent(data.results);
       setNumOfPages(data.total_pages);
@@ -191,7 +192,7 @@ const Movies = () => {
                     </svg>
                     <span className="content-rating">{x.vote_average}</span>
                   </div>
-                  <span className="content-date">{x.release_date}</span>
+                  <span className="content-date">{x.release_date && x.release_date.substring(0, 4) }</span>
                 </div>
               </div>
             )

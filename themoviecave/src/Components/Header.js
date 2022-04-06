@@ -7,6 +7,8 @@ const Header = () => {
 
   let {contextData} = useContext(AuthContext)
 
+  const [open, setOpen] = useState(false);
+
   
   // const [signIn, setSignIn] = useState({ username: '', password: '' });
 
@@ -15,28 +17,6 @@ const Header = () => {
   // const changeHandler = e => {
   //   setSignIn({ ...signIn, [e.target.name]: e.target.value });
   // }
-
-
-  // const submitHandler = e => {
-
-  //   e.preventDefault();
-
-  //   console.log(signIn);
-
-  //   fetch('http://127.0.0.1:8000/auth/', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(signIn),
-  //   }).then(data => data.json()).then(
-  //     data => {
-  //       console.log(data);
-  //     }
-  //   ).catch(error => console.error(error))
-  // }
-
-  // const login = () => (
-  //   console.log("logged in")
-  // )
 
   return (
     <>
@@ -68,9 +48,19 @@ const Header = () => {
             {
               contextData.user
               ?
-              (<span onClick={contextData.logOut}> Log Out</span>)
+                < div className="user-profile-section" style={{color:"white"}}>
+                  <span className='user-profile-name' onClick={() => setOpen(!open)}>{contextData.user.username}</span>
+                  { open &&
+                    <li className="user-dropdown-menu">
+                      <Link to='/watchlist' className='dropdown-item' onClick={contextData.logOut}> WatchList</Link>
+                      <Link to='/Favorites'className='dropdown-item' onClick={contextData.logOut}> Favorites</Link>
+                      <Link to='Rated'className='dropdown-item' onClick={contextData.logOut}> Rated</Link>
+                      <span className='dropdown-item logout-btn' onClick={contextData.logOut}> Log Out</span>
+                    </li>
+                    }
+                </div>
+              
               :
-              (
                 <>
                   <Link className='signin-btn' to= "/signin">
                     Sign In
@@ -78,14 +68,7 @@ const Header = () => {
                   <Link to="/signup" className="header-signup-link">
                     Join TMC
                   </Link>
-                
-                
                 </>
-              )
-            }
-            {
-              contextData.user && 
-              <p>{contextData.user.username}</p>
             }
           </div>
         </nav>

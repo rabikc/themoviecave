@@ -14,7 +14,7 @@ const Keywords = () => {
     const tmdbAPI = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=8a05c19a7386d175fd3e7bfb315f408a`
+          `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}`
         )
 
         setKeyWords(data)

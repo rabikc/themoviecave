@@ -6,7 +6,7 @@
 .page-header{
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.05);
+    /* background: rgba(255, 255, 255, 0.05); */
     display: flex;
     align-items: center;
 }
@@ -93,7 +93,7 @@
 
 .signin-btn:hover, .header-signup-link:hover{
     background-color: var(--t) ;
-    transition: background 125ms ease-in ;
+    transition: background-color 125ms ease-in ;
 }
 
 .user-header-links {
@@ -195,5 +195,41 @@
     border: none;
     background: none;
     font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.user-profile-section{
+    position: relative;
+}
+
+.user-profile-name{
+    cursor: pointer;
+    padding: .2rem .3rem ;
+}
+
+.user-dropdown-menu{
+    position: absolute;
+    top: 40px;
+    z-index: 100;
+    width: 150px;
+    border: 1px solid white;
+    transform: translateX(-55%);
+    background-color: var(--m);
+    padding: 0.7rem;
+    overflow: hidden;
+}
+
+.dropdown-item{
+    display: flex;
+    padding: 0.3rem 0.5rem;
+    transition: background 150ms ease-in;
+    border-radius: 5px;
+}
+
+.dropdown-item:hover{
+    background-color: var(--s);
+}
+
+.logout-btn{
     cursor: pointer;
 }

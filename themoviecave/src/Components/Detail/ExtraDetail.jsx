@@ -14,7 +14,7 @@ const ContentBackdrop = () => {
     const tmdbAPI = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.themoviedb.org/3/${category}/${id}?api_key=8a05c19a7386d175fd3e7bfb315f408a&language=en-US`
+          `https://api.themoviedb.org/3/${category}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
         )
 
         setContent(data)

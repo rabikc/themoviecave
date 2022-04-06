@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import axios from 'axios';
 import PrivateRoute from './utils/PrivateRoute';
 import {AuthProvider} from './context/AuthContext'
 
@@ -13,10 +12,9 @@ import Tv from './Components/Tv';
 import SignIn from './pages/SignIn'
 import SingleContent from './Components/Detail/SingleContent';
 
-// axios.defaults.xsrfCookieName = 'csrftoken'
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 function App() {
+
   return (
     <div className="App">
       <Router>

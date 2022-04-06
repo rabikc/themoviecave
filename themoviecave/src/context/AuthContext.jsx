@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
     let [user, setUser] = useState( () =>
     localStorage.getItem('tokens')
     ?
-    localStorage.getItem('tokens') 
+    jwt_decode(localStorage.getItem('tokens'))
     :
     null)
 
@@ -52,7 +52,9 @@ export const AuthProvider = ({children}) => {
 
               console.log(data);
             }
-          ).catch(error => console.error(error))
+          ).catch(error => navigate('/signin'))
+
+          console.log(user)
     }
 
     let logOut = () => {
@@ -86,7 +88,7 @@ export const AuthProvider = ({children}) => {
             setUser(null)
             localStorage.removeItem('tokens')
             navigate('/')  
-            console.error(error)})
+            })
 
         if(loading){
             setLoading(false)
