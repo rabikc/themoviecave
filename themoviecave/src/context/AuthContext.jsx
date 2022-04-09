@@ -28,6 +28,8 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate();
 
+    const [authError, setAuthError] = useState()
+
     let loginUser = async( e ) =>{
 
         e.preventDefault()
@@ -44,24 +46,55 @@ export const AuthProvider = ({children}) => {
             data => {
                 setTokens(data)
 
-                setUser( jwt_decode(data.access))
+                setUser(jwt_decode(data.access))
 
                 localStorage.setItem('tokens', JSON.stringify(data))
 
                 navigate('/')
 
-              console.log(data);
+                console.log(data)
+
             }
-          ).catch(error => navigate('/signin'))
+          ).catch((error) => {
+            
+            // if(error === 401){
+            //     setAuthError('Username or Password is incorrect')
+            //     console.log(authError);
+            // }   
+
+            // if(error === 404){
+            //     setAuthError('Fething error')
+            //     console.log(authError);
+            // }  
+            
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+              console.log(error.config);
+
+            console.log(error.response)
+        })
 
           console.log(user)
     }
 
     let logOut = () => {
-        setTokens(null)
-        setUser(null)
-        localStorage.removeItem('tokens')
-        navigate('/')
+        setTokens(null);
+        setUser(null);
+        localStorage.removeItem('tokens');
+        navigate('/');
     }
 
     let updateToken = async () => {
@@ -87,7 +120,7 @@ export const AuthProvider = ({children}) => {
             setTokens(null)
             setUser(null)
             localStorage.removeItem('tokens')
-            navigate('/')  
+            // navigate('/') 
             })
 
         if(loading){
@@ -101,6 +134,7 @@ export const AuthProvider = ({children}) => {
         tokens:tokens,
         loginUser:loginUser,
         logOut:logOut,
+        loading:loading,
 
     }
 
@@ -110,9 +144,9 @@ export const AuthProvider = ({children}) => {
             updateToken()
         }
 
-        let fourMinutes = 1000 * 600 * 4
+        const fourMinutes = 1000 * 60 * 4
 
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
             if(tokens){
                 updateToken()
             }

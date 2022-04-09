@@ -39,23 +39,23 @@ const SignUp = () => {
           <div className="signup-form">
           <div className="form-input">
               <label htmlFor="Name">First Name</label>
-              <input type="text" name='first_name' value={first_name} onChange={changeHandler}/>
+              <input type="text" name='first_name' required value={first_name} onChange={changeHandler}/>
             </div>
             <div className="form-input">
               <label htmlFor="Name">Last Name</label>
-              <input type="text" name='last_name' value={last_name} onChange={changeHandler}/>
+              <input type="text" name='last_name' required value={last_name} onChange={changeHandler}/>
             </div>
             <div className="form-input">
               <label htmlFor="Name">Username</label>
-              <input type="text" name='username' value={username} onChange={changeHandler}/>
+              <input type="text" name='username' required value={username} onChange={changeHandler}/>
             </div>
             <div className="form-input">
               <label htmlFor="Email">Email</label>
-              <input type="email" name='email' value={email} onChange={changeHandler}/>
+              <input type="email" name='email' required value={email} onChange={changeHandler}/>
             </div>
             <div className="form-input">
               <label htmlFor="Password">Password</label>
-              <input type="password" name='password' value={password} onChange={changeHandler}/>
+              <input type="password" name='password' required value={password} onChange={changeHandler}/>
             </div>
           </div>
           <input type="submit" value="Submit" />

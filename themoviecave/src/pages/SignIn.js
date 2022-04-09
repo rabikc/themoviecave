@@ -17,11 +17,11 @@ const SignIn = () => {
               <div className="signin-form">
                 <div className="form-input">
                   <label htmlFor="Username">Username</label>
-                  <input type="text" name='username' />
+                  <input type="text" name='username' required/>
                 </div>
                 <div className="form-input">
                   <label htmlFor="Password">Password</label>
-                  <input type="password" name='password' />
+                  <input type="password" name='password' required/>
                 </div>
               </div>
               <input type="submit" name='submit' />

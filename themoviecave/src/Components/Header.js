@@ -52,9 +52,9 @@ const Header = () => {
                   <span className='user-profile-name' onClick={() => setOpen(!open)}>{contextData.user.username}</span>
                   { open &&
                     <li className="user-dropdown-menu">
-                      <Link to='/watchlist' className='dropdown-item' onClick={contextData.logOut}> WatchList</Link>
-                      <Link to='/Favorites'className='dropdown-item' onClick={contextData.logOut}> Favorites</Link>
-                      <Link to='Rated'className='dropdown-item' onClick={contextData.logOut}> Rated</Link>
+                      <Link to='/watchlist' className='dropdown-item'> WatchList</Link>
+                      <Link to='/favorites'className='dropdown-item'> Favorites</Link>
+                      <Link to='/watched'className='dropdown-item'> Rated</Link>
                       <span className='dropdown-item logout-btn' onClick={contextData.logOut}> Log Out</span>
                     </li>
                     }
