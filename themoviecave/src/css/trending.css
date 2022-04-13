@@ -31,7 +31,7 @@
     flex-direction: column;
     position: relative;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .trending-single-content:last-child{
@@ -47,11 +47,11 @@
     width: 100%;
     /* height: 270px; */
     border-radius: 8px;
+    transition: opacity 250ms ease-in-out;
 }
 
 .trending-single-content img:hover{
-    opacity: 0.75;
-    transition: opacity 250ms ease-in-out;
+    opacity: 0.70;
 }
 
 .content-card-detail{
@@ -60,11 +60,11 @@
 
 .trending-single-content .content-title{
     font-weight: 700;
+    transition: color 150ms ease-in-out;
 }
 
 .trending-single-content .content-title:hover{
     color: var(--t);
-    transition: color 125ms ease-in-out;
 }
 
 .trending-single-content .content-type{
@@ -75,12 +75,12 @@
     background-color: rgba(0, 0, 0, 0.7);
     padding: .3rem;
     border-radius: 3px;
+    transition: all 150ms ease-in-out;
 }
 
 .trending-single-content .content-type:hover{
     background-color: var(--m);
     color: var(--t);
-    transition: all 125ms ease-in-out;
 }
 
 .content-type-tv{
@@ -105,12 +105,12 @@
     background: rgba(0, 0, 0, 0.7);
     color: #fff;
     border-radius: 3px;
+    transition: all 150ms ease-in-out;
 }
 
 .trending-single-content .content-btn:hover{
     color: var(--t);
     background-color: var(--m);
-    transition: all 125ms ease-in-out;
 }
 .content-rating-section {
     display: flex;

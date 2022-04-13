@@ -10,31 +10,32 @@ export default AuthContext
 export const AuthProvider = ({children}) => {
 
 
-    let [user, setUser] = useState( () =>
+    const [user, setUser] = useState( () =>
     localStorage.getItem('tokens')
     ?
     jwt_decode(localStorage.getItem('tokens'))
     :
     null)
 
-    let [tokens, setTokens] = useState(() => 
+    const [tokens, setTokens] = useState(() => 
     localStorage.getItem('tokens')
     ?
     JSON.parse(localStorage.getItem('tokens'))
     :
     null)
 
-    let [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate();
 
     const [authError, setAuthError] = useState()
 
-    let loginUser = async( e ) =>{
+    const loginUser = async( e ) =>{
 
         e.preventDefault()
+        // setLoading(true)
 
-        let response = fetch('http://127.0.0.1:8000/api/token/',
+        const response = fetch('http://127.0.0.1:8000/api/token/',
         {
             method:'POST',
             headers:{
@@ -44,6 +45,7 @@ export const AuthProvider = ({children}) => {
         }
         ).then(data => data.json()).then(
             data => {
+
                 setTokens(data)
 
                 setUser(jwt_decode(data.access))
@@ -53,53 +55,38 @@ export const AuthProvider = ({children}) => {
                 navigate('/')
 
                 console.log(data)
+                console.log(response)
+                setLoading(false)
 
             }
           ).catch((error) => {
-            
-            // if(error === 401){
-            //     setAuthError('Username or Password is incorrect')
-            //     console.log(authError);
-            // }   
 
-            // if(error === 404){
-            //     setAuthError('Fething error')
-            //     console.log(authError);
-            // }  
+            if(error.message === 'Invalid token specified'){
+                setAuthError('Something is wrong with your username or password')
+            }
+            else if(error.message === 'Failed to fetch'){
+                
+                setAuthError('Something went wrong with the server')
+            }
             
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-              } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
-                console.log(error.request);
-              } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-              }
-              console.log(error.config);
-
-            console.log(error.response)
+            console.log(error.message)
         })
 
           console.log(user)
     }
 
-    let logOut = () => {
+    const logOut = () => {
+
         setTokens(null);
         setUser(null);
         localStorage.removeItem('tokens');
         navigate('/');
+
     }
 
-    let updateToken = async () => {
+    const updateToken = async () => {
 
-        let response = fetch('http://127.0.0.1:8000/api/token/refresh/',
+        const response = fetch('http://127.0.0.1:8000/api/token/refresh/',
         {
             method:'POST',
             headers:{
@@ -108,10 +95,12 @@ export const AuthProvider = ({children}) => {
             body: JSON.stringify({'refresh': tokens?.refresh})
         }
         ).then(data => data.json()).then(
+
             data => {
+
                 setTokens(data)
 
-                setUser( jwt_decode(data.access))
+                setUser(jwt_decode(data.access))
 
                 localStorage.setItem('tokens', JSON.stringify(data))
 
@@ -120,22 +109,22 @@ export const AuthProvider = ({children}) => {
             setTokens(null)
             setUser(null)
             localStorage.removeItem('tokens')
+            
             // navigate('/') 
             })
 
         if(loading){
             setLoading(false)
         }
-
     }
 
-    let contextData = {
+    const contextData = {
         user:user,
         tokens:tokens,
         loginUser:loginUser,
         logOut:logOut,
         loading:loading,
-
+        authError:authError
     }
 
     useEffect(() => {
@@ -144,13 +133,13 @@ export const AuthProvider = ({children}) => {
             updateToken()
         }
 
-        const fourMinutes = 1000 * 60 * 4
+        const updateTime = 1000 * 60 * 29
 
         const interval = setInterval(() => {
             if(tokens){
                 updateToken()
             }
-        }, fourMinutes)
+        }, updateTime)
 
         return () => clearInterval(interval)
 

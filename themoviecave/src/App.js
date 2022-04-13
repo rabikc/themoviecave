@@ -25,22 +25,22 @@ function App() {
     <div className="App">
       <Router>
       <AuthProvider>
-       <Header/>
-        <Routes>
-          <Route exact path="/" element= {<Hero/>}/>
-          <Route exact path="/signup" element= {<SignUp/>}/>
-          <Route exact path="/discover" element= {<Discover/>}/>
-          <Route exact path="/movie" element= {<Movies/>}/>
-          <Route exact path="/movie/top-rated" element= {<TopRatedMovie/>}/>
-          <Route exact path="/movie/upcoming" element= {<UpcomingMovie/>}/>
-          <Route exact path="/tv" element= {<Tv/>}/>
-          <Route exact path="/tv/top-rated" element= {<TopRatedTv/>}/>
-          <Route exact path="/tv/upcoming" element= {<UpcomingTv/>}/>
-          <Route exact path="/signin" element= {<SignIn/>}/>
-          <Route exact path="/watchlist" element= {<PrivateRoute><Watchlist/></PrivateRoute>}/>
-          <Route exact path="/watched" element= {<PrivateRoute> <Watched/> </PrivateRoute>}/>
-          <Route path='/:category/:id/:title' element={<SingleContent/>}/>
-        </Routes>
+          <Header/>
+            <Routes>
+              <Route exact path="/" element= {<Hero/>}/>
+              <Route exact path="/signup" element= {<SignUp/>}/>
+              <Route exact path="/discover" element= {<Discover/>}/>
+              <Route exact path="/movie" element= {<Movies/>}/>
+              <Route exact path="/movie/top-rated" element= {<TopRatedMovie/>}/>
+              <Route exact path="/movie/upcoming" element= {<UpcomingMovie/>}/>
+              <Route exact path="/tv" element= {<Tv/>}/>
+              <Route exact path="/tv/top-rated" element= {<TopRatedTv/>}/>
+              <Route exact path="/tv/upcoming" element= {<UpcomingTv/>}/>
+              <Route exact path="/signin" element= {<SignIn/>}/>
+              <Route exact path="/watchlist" element= {<PrivateRoute><Watchlist/></PrivateRoute>}/>
+              <Route exact path="/watched" element= {<PrivateRoute> <Watched/> </PrivateRoute>}/>
+              <Route path='/:category/:id/:title' element={<SingleContent/>}/>
+            </Routes>
         </AuthProvider>
       </Router> 
     </div> 

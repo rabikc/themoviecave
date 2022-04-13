@@ -19,19 +19,20 @@ class UserSerializer(serializers.ModelSerializer):
             )
     password = serializers.CharField(min_length=8)
 
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],
-             validated_data['password'])
-        return user
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(validated_data['username'], validated_data['email'],
+    #          validated_data['password'])
+    #     return user
 
     class Meta:
         model = User
         fields = ['id','first_name','last_name','username', 'email', 'password']
-        extra_kwargs = {'password': {'write_only': True, 'required': True}}
+        extra_kwargs = {'password': {'write_only': True, 'required': True},
+        'first_name': {'required': True},'last_name': {'required': True},
+        'email': {'required': True}}
         
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-
         return user
 
 

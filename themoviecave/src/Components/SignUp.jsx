@@ -6,6 +6,8 @@ const SignUp = () => {
 
   const [signUp, setSignUp] = useState({ first_name: '', last_name:'', username: '', email: '', password: '' });
 
+  const [message, setMessage] = useState()
+
   const { first_name,last_name, username, email, password } = signUp;
 
   const changeHandler = e => {
@@ -13,19 +15,27 @@ const SignUp = () => {
   }
 
 
-  const submitHandler = e => {
+  const submitHandler = async (e) => {
 
     e.preventDefault();
 
     console.log(signUp);
 
-    fetch('http://127.0.0.1:8000/api/users/', {
+    const response = fetch('http://127.0.0.1:8000/api/users/', {
       
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(signUp),
-    }).then(data => data.json())
-    .catch(error => console.error(error))
+    })
+    // .then(data => data.json())
+    // .catch(error => console.error(error))
+
+    const data = await response
+    console.log(data)
+
+    if(data.statusText === 'Created'){
+      setMessage("Your Account has been successfully created")
+    }
 
     setSignUp({first_name: '', last_name:'', username: '', email: '', password: '' })
   }

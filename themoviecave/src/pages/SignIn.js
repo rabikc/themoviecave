@@ -9,8 +9,7 @@ const SignIn = () => {
     let {contextData} = useContext(AuthContext);
 
   return (
-    <section className="signin-section container">
-          <div className="modal-overlay"></div>
+    <section className="signin-section">
           <div className="signin-bg">
             <form  onSubmit={contextData.loginUser}>
               <h1 className='signin-title'>Sign In</h1>
@@ -23,8 +22,9 @@ const SignIn = () => {
                   <label htmlFor="Password">Password</label>
                   <input type="password" name='password' required/>
                 </div>
+                <span className='auth-error'>{contextData.authError}</span>
               </div>
-              <input type="submit" name='submit' />
+              <input type="submit" name='signin' value="Sign in" />
             </form>
             <div className="signup-suggest">
               <h1>Don't have an account yet?</h1>

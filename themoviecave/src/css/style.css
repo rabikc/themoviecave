@@ -90,11 +90,11 @@ body {
     padding: 0.7rem;
     border-radius: 5px;
     background: var(--s);
+    transition: background 150ms ease-in;
 }
 
 .hero-content-section a:hover {
     background: var(--t);
-    transition: background 125ms ease-in;
 }
 
 .signup-box {
@@ -138,6 +138,113 @@ body {
 
 .signup-list li {
     list-style: disc;
+}
+
+
+/********* SIGN IN ********/
+
+.signin-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 89vh;
+    max-height: auto;
+}
+
+.signin-bg{
+    background-color: rgb(250, 254, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 70%;
+    margin: auto;
+    border-radius: 10px;
+
+}
+
+.signin-bg form{
+    padding: 1.5rem;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signin-bg form h1{
+    text-align: center;
+}
+
+.signin-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-form .form-input{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.signin-form .form-input:nth-child(2){
+    margin-top: 1rem;
+}
+
+.signin-form .form-input input{
+    padding: 0.5rem;
+    margin-top: 0.4rem;
+    border: none;
+    border-bottom: 1px solid var(--s);
+    width: 20rem;
+}
+
+.signin-bg input[type="submit"]{
+
+    padding: 0.6rem 0.8rem;
+    background-color: var(--s);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+    border: none;
+    margin-top: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.signup-suggest{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 50%;
+}
+
+.signin-bg .signup-suggest{
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-suggest .signup-link{
+    padding: 0.6rem 0.8rem;
+    background-color: var(--s);
+    border-radius: 5px;
+    border: none;
+    margin-top: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+.signin-bg .signin-form .auth-error{
+    font-size: 0.8rem;
+    color: rgb(211, 0, 0);
+    margin-top: 1.2rem;
 }
 
 
@@ -200,4 +307,34 @@ footer {
 .ipc-icon:hover {
     color: var(--t);
     transition: color 150ms ease-in-out;
+}
+
+/******** ERROR *******/
+
+.error-message{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+    font-size: 1.7rem;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url(../../public/images/error-bg.gif);
+    background-position: 20% 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.page-loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+    font-size: 1.7rem;
 }

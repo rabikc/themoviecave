@@ -193,33 +193,3 @@ input:focus{
     color: #fff;
 }
 
-/******** ERROR *******/
-
-.error-message{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    color: #fff;
-    font-size: 1.7rem;
-    width: 50%;
-    height: 50%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url(../../public/images/error-bg.gif);
-    background-position: 20% 20%;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.page-loading{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    color: #fff;
-    font-size: 1.7rem;
-}
-

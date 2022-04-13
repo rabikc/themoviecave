@@ -1,0 +1,75 @@
+.user-saved-content .titles-subtitles{
+    color: #fff;
+}
+
+.user-saved-content h1{
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+}
+
+.user-saved-content .titles-subtitles h2{
+    color: rgb(185, 185, 185);
+}
+
+.user-saved-content .user-saved-grid{
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.user-saved-grid .single-content{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.user-saved-grid .single-content .image-link{
+    width: 115px;
+    margin-right: 2rem;
+}
+
+.user-saved-grid .single-content .image-link img{
+    width: 115px;
+}
+
+.user-saved-content .content-card-detail .content-title{
+    font-size: 1.4rem;
+
+}
+
+.user-content-card-detail .content-overview{
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.user-saved-content .content-type{
+    position: absolute;
+    top: 1%;
+    left: .2%;
+    background-color:rgba(0, 0, 0, 0.7);
+    padding: 0.2rem 0.3rem;
+    border-radius: 5px;
+}
+
+.user-content-card-detail .content-remove-btn{
+    margin-top: 1rem;
+    padding: 0.4rem 0.5rem;
+    border: none;
+    color: #fff;
+    background-color: var(--s);
+    transition: all 150ms ease-in;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user-content-card-detail .content-remove-btn:hover{
+    background-color: var(--t);
+}
+
