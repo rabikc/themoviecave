@@ -2,11 +2,11 @@ import { Navigate } from 'react-router-dom'
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
-const PrivateRoute = ({children}) => {
+const PublicRoute = ({children}) => {
 
   let {contextData} = useContext(AuthContext)
 
-  return !contextData.user ? <Navigate to = "/signin"/> : children 
+  return contextData.user ? <Navigate to = "/"/> : children 
 }
 
-export default PrivateRoute
+export default PublicRoute

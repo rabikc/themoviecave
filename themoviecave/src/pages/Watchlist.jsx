@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContentCard from "../Components/UserContentCard";
 import AuthContext from "../context/AuthContext";
+import UserDataContext from "../context/UserDataContex";
 import "../css/watchlist.css";
 
 const Watchlist = () => {
@@ -8,6 +9,8 @@ const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
 
   const { contextData } = useContext(AuthContext);
+
+  // const { getWatchlist } = useContext(UserDataContext);
 
   const [error, setError] = useState();
 
@@ -47,36 +50,6 @@ const Watchlist = () => {
     getWatchlist();
   }, []);
 
-  const deleteWatchlist = async () => {
-      
-    const response = await fetch("http://127.0.0.1:8000/api/watchlists/", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${contextData.tokens.access}`,
-      },
-    });
-
-    setIsLoaded(true);
-
-    const data = await response.json();
-
-    console.log(response.status);
-
-    if (response.status === 200) {
-      setWatchlist(data);
-    } else if (response.status === 401) {
-      contextData.logOut();
-    } else if (response.status === 404) {
-      setError("404");
-    }
-
-    setWatchlist(data);
-    console.log(response.status);
-
-    contextData.setLoading = false;
-  };
-
   console.log(watchlist);
 
   if (error) {
@@ -94,7 +67,7 @@ const Watchlist = () => {
           <div className="user-saved-grid">
             {watchlist &&
               watchlist.map((content, i) => (
-                <UserContentCard content={content} key={i} />
+                <UserContentCard content={content} key={i} getWatchlist={getWatchlist}/>
               ))}
           </div>
         </div>

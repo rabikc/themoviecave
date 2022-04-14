@@ -28,9 +28,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
 
         token['username'] = user.username
-        # token['id'] = user.id
-        # token['first_name'] = user.firstName
-        # token['last_name'] = user.lastName
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
 
         return token
 
@@ -47,27 +46,17 @@ class MyTokenObtainPairView(TokenObtainPairView):
 #     ]
 #     return Response(routes)
 
-
-# @api_view(['POST','GET','DELETE'])
-# @permission_classes([IsAuthenticated])
-
-# def getWatchlist(request):
-#     user = request.user
-#     watchlists = user.watchlist_set.all()
-#     serializer = WatchListSerializer(watchlists, many = True)
-#     return Response(serializer.data)
-
-@api_view(['POST','GET','DELETE'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
 def getWatchlist(request):
 
     if request.method == 'GET':
         user = request.user
         watchlists = user.watchlist_set.all()
-        serializer = WatchListSerializer(watchlists, many = True)
+        serializer = WatchListSerializer(watchlists, many=True)
         return Response(serializer.data)
 
-    if request.method == 'POST':    
+    elif request.method == 'POST':
         user = request.user
         watchlists = user
         serializer = WatchListSerializer(data=request.data)
@@ -77,3 +66,12 @@ def getWatchlist(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteWishlist(request, pk):
+    watchlists = WatchList.objects.get(id=pk)
+    watchlists.delete()
+
+    return Response(status=status.HTTP_204_NO_CONTENT)

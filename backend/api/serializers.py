@@ -40,6 +40,16 @@ class UserSerializer(serializers.ModelSerializer):
 # Wathilist Serializer
 
 class WatchListSerializer(ModelSerializer):
+
+    # name = serializers.CharField(
+    #         required=True,
+    #         validators=[UniqueValidator(queryset=WatchList.objects.all())]
+    #         )
+    # content_id = serializers.CharField(
+    #         required=True,
+    #         validators=[UniqueValidator(queryset=WatchList.objects.all())]
+    #         )
+
     class Meta:
         model = WatchList
         fields = '__all__'

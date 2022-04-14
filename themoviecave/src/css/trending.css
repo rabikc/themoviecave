@@ -1,5 +1,6 @@
 .trending-section{
     width: 100%;
+    margin-top: 2rem;
 }
 
 .trending-flex-display{
@@ -91,12 +92,16 @@
     text-transform: capitalize;
 }
 
-.trending-single-content .content-btn{
+.user-action-btns{
     position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
     right: 1%;
     top: 1%;
+}
+
+.user-action-btns .watchlist-btn, .user-action-btns .favorites-btn, .user-action-btns .watched-btn{
     width: 30px;
     height: 35px;
     padding: 0.2rem 0.1rem;
@@ -106,12 +111,23 @@
     color: #fff;
     border-radius: 3px;
     transition: all 150ms ease-in-out;
+    margin-bottom: 0.2rem;
 }
 
-.trending-single-content .content-btn:hover{
+.user-action-btns .watched-btn{
+    margin-bottom: 0;
+}
+
+.user-action-btns .watchlist-btn:hover, .user-action-btns .watched-btn:hover{
     color: var(--t);
     background-color: var(--m);
 }
+
+.user-action-btns .favorites-btn:hover{
+    color: rgb(220, 0, 0);
+    background-color: var(--m);
+}
+
 .content-rating-section {
     display: flex;
     justify-content: flex-start;

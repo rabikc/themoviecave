@@ -3,7 +3,46 @@ import { Link } from "react-router-dom";
 import { img_300, unavailable } from "../config";
 import AuthContext from "../context/AuthContext";
 
-const UserContentCard = ({ content }) => {
+const UserContentCard = ({content, getWatchlist}) => {
+
+  const { contextData } = useContext(AuthContext);
+
+  const deleteWatchlist = async () => {
+      
+    const response = await fetch(`http://127.0.0.1:8000/api/watchlists/${content.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${contextData.tokens.access}`,
+      },
+    });
+
+    // setIsLoaded(true);
+
+    const data = await response;
+
+    console.log(data);
+
+    if(data){
+      getWatchlist();
+    }
+
+    console.log(response.status);
+
+    // if (response.status === 200) {
+    //   setWatchlist(data);
+    // } else if (response.status === 401) {
+    //   contextData.logOut();
+    // } else if (response.status === 404) {
+    //   setError("404");
+    // }
+
+    // setWatchlist(data);
+    console.log(response.status);
+
+    contextData.setLoading = false;
+  };
+
   return (
     <div className="single-content">
       <Link
@@ -64,7 +103,7 @@ const UserContentCard = ({ content }) => {
             (content.release_date && content.release_date.substring(0, 4))}
         </span>
         <p className="content-overview">{content.overview}</p>
-        <button className="content-remove-btn">Remove</button>
+        <button className="content-remove-btn" onClick={deleteWatchlist}>Remove</button>
       </div>
     </div>
   );

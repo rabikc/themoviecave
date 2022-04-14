@@ -20,7 +20,8 @@ router.register('users', UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('watchlists/', views.getWatchlist,name='Watchlist'),
+    path('watchlists/', views.getWatchlist,name='Watchlists'),
+    path('watchlists/<str:pk>/', views.deleteWishlist,name='Watchlist'),
     # path('users/', views.as_view(), name= ),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
