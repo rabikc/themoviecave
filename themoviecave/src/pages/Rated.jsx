@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserContentCard from "../Components/WatchlistCard";
+import RatedCard from "../Components/RatedCard";
 import AuthContext from "../context/AuthContext";
 import UserDataContext from "../context/UserDataContex";
 import "../css/watchlist.css";
 
 const Watchlist = () => {
 
-  const [watchlist, setWatchlist] = useState([]);
+  const [rating, setRating] = useState([]);
 
   const { contextData } = useContext(AuthContext);
 
-  // const { getWatchlist } = useContext(UserDataContext);
+  const { getWatchlist } = useContext(UserDataContext);
 
   const [error, setError] = useState();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const getWatchlist = async () => {
+  const getRating = async () => {
       
-    const response = await fetch("http://127.0.0.1:8000/api/watchlists/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${contextData.tokens.access}`,
-      },
-    });
+    const response = await fetch("http://127.0.0.1:8000/api/rated/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${contextData.tokens.access}`,
+        },
+      });
 
     setIsLoaded(true);
 
@@ -33,24 +33,24 @@ const Watchlist = () => {
     console.log(response.status);
 
     if (response.status === 200) {
-      setWatchlist(data);
+      setRating(data);
     } else if (response.status === 401) {
       contextData.logOut();
     } else if (response.status === 404) {
       setError("404");
     }
 
-    setWatchlist(data);
+    setRating(data);
     console.log(response.status);
 
     contextData.setLoading = false;
   };
 
   useEffect(() => {
-    getWatchlist();
+    getRating();
   }, []);
 
-  console.log(watchlist);
+  console.log(rating);
 
   if (error) {
     return <div className="error-message">Error: {error}</div>;
@@ -61,17 +61,17 @@ const Watchlist = () => {
       <section className="user-saved-section">
         <div className="user-saved-content container">
           <div className="titles-subtitles">
-            <h1>Your Watchlist</h1>
-            <h2>{watchlist.length} titles</h2>
+            <h1>Your Ratings</h1>
+            <h2>{rating.length} titles rated</h2>
           </div>
           <div className="user-saved-grid">
-            {watchlist.length > 0 
+            {rating.length > 0 
             ? 
-              watchlist.map((content, i) => (
-                <UserContentCard content={content} key={i} getWatchlist={getWatchlist}/>
+              rating.map((content, i) => (
+                <RatedCard content={content} key={i}/>
               ))
             :
-            <h1 className="no-watchlist-title">There is no title in your Watchlist</h1>
+            <h1 className="no-watchlist-title">You have not rated any title</h1>
             }
           </div>
         </div>

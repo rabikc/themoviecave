@@ -46,7 +46,7 @@
 
 .trending-single-content img{
     width: 100%;
-    /* height: 270px; */
+    height: 270px;
     border-radius: 8px;
     transition: opacity 250ms ease-in-out;
 }
@@ -144,10 +144,10 @@
 .content-rating-section .content-rating{
     margin-right: 0.2rem;
 }
-.content-rating-section .star-svg{
-    width: 18px;
-    color: rgb(192, 192, 0);
-}
+
+    .content-rating-section .content-star-svg{
+        color: #F5C518;
+    }
 
 /******* POPULAR SECTION ********/
 

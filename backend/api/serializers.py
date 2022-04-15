@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
-from .models import WatchList
+from .models import WatchList, Rating
 
 
 #User Serializer
@@ -52,4 +52,11 @@ class WatchListSerializer(ModelSerializer):
 
     class Meta:
         model = WatchList
+        fields = '__all__'
+
+
+class RatingSerializer(ModelSerializer):
+
+    class Meta:
+        model = Rating
         fields = '__all__'

@@ -1,22 +1,113 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
+// import axios from "axios";
 import { img_300, img_500, unavailable, original } from "../../config";
 import "../../css/single-content.css";
 import { Stack, Rating } from "@mui/material";
+import AuthContext from "../../context/AuthContext";
+import UserDataContext from "../../context/UserDataContex";
 
-const ContentBackdrop = ({content}) => {
+const ContentBackdrop = ({content, keyWords}) => {
+
   const { category, id } = useParams();
   // const [content, setContent] = useState();
 
   const [rValue, setRValue] = useState(null);
+  const [keyword, setKeyword] = useState([])
+  const [postResponse, setPostResponse] = useState("");
+  const { contextData } = useContext(AuthContext)
+  const { watchlist, rating} = useContext(UserDataContext);
+  const [genre, setGenre] = useState()
 
   const handleRating = (e, newRValue) => {
     setRValue(newRValue);
   };
 
   console.log(rValue);
+
+  const postWatchlist = async () => {
+    if (contextData.user) {
+      const postData = {
+        name: content.title || content.name,
+        content_id: content.id,
+        media_type: content.release_date ? "movie" : "tv",
+        overview: content.overview,
+        poster_path: content.poster_path,
+        backdrop_path: content.backdrop_path,
+        vote_average: content.vote_average,
+        user: contextData.user.user_id,
+      };
+
+      const response = fetch("http://127.0.0.1:8000/api/watchlists/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${contextData.tokens.access}`,
+        },
+        body: JSON.stringify(postData),
+      });
+
+      const data = await response;
+
+      console.log(data);
+      console.log(watchlist);
+
+      if (data.status === 201) {
+        setPostResponse("Added to Watchlist");
+      } else if (data.status === 400) {
+        setPostResponse("Already in your Watchlist");
+      }
+    } else if (contextData.user === null) {
+      setPostResponse("You need to sign in first");
+    }
+  };
+
+  const getGenres = content.genres.map((g) => g.name[0] )
+
+  const postRating = async () => {
+
+    if (contextData.user) {
+      const postData = {
+        name: content.title || content.name,
+        content_id: content.id,
+        media_type: content.release_date ? "movie" : "tv",
+        overview: content.overview,
+        poster_path: content.poster_path,
+        backdrop_path: content.backdrop_path,
+        user: contextData.user.user_id,
+        stars: rValue,
+        review: "Good",
+        genre: getGenres,
+        date: content.release_date || content.first_air_date
+      };
+
+      const response = fetch("http://127.0.0.1:8000/api/rated/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${contextData.tokens.access}`,
+        },
+        body: JSON.stringify(postData),
+      });
+
+      const data = await response;
+
+      console.log(data);
+      console.log(rating);
+
+      if (data.status === 201) {
+        setPostResponse("Added to Watchlist");
+      } else if (data.status === 400) {
+        setPostResponse("Already in your Watchlist");
+      }
+
+      // handleRating()
+
+    } else if (contextData.user === null) {
+      setPostResponse("You need to sign in first");
+    }
+  };
 
   // useEffect(() => {
   //   const tmdbAPI = async () => {
@@ -35,6 +126,22 @@ const ContentBackdrop = ({content}) => {
 
   //   tmdbAPI();
   // }, [category, id]);
+
+  
+
+  // if(category === "movie"){
+
+  //   const movieK = keyWords.keyword.map((k) => k)
+
+  //   setKeyword(movieK)
+  //   console.log(keyword)
+  // }
+
+  // else{
+  //   const seriesk = keyWords.results.map((r) => r)
+  //   setKeyword(seriesk)
+  //   console.log(keyword)
+  // }
 
   return (
     <>
@@ -74,10 +181,15 @@ const ContentBackdrop = ({content}) => {
                 </div>
                 <div className="bottom-backdrop">
                   <div className="details-genre">
-                    {content.genres &&
+                    {content.genres.length >= 1
+                    ?
                       content.genres
                         .slice(0, 4)
-                        .map((genre, i) => <span key={i}>{genre.name}</span>)}
+                        .map((genre, i) => <span key={i}>{genre.name}</span>)
+                    :
+                    <span>N/A</span>  
+                      
+                    }
                   </div>
                   <span className="content-runtime">
                     {content.runtime 
@@ -136,6 +248,7 @@ const ContentBackdrop = ({content}) => {
                       padding: "0.2rem",
                       borderRadius: "5px",
                     }}
+                    className="rater-container"
                   >
                     <Rating
                       name="customized-10"
@@ -144,6 +257,7 @@ const ContentBackdrop = ({content}) => {
                       max={10}
                       precision={0.5}
                       onChange={handleRating}
+                      onClick={postRating}
                     />
                   </Stack>
                 </div>

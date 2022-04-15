@@ -18,7 +18,9 @@ import SignIn from "./pages/SignIn";
 import SingleContent from "./Components/Detail/SingleContent";
 import Watchlist from "./pages/Watchlist";
 import Watched from "./pages/Watched";
+import Rated from "./pages/Rated";
 import PublicRoute from "./utils/PublicRoute";
+
 
 function App() {
   return (
@@ -74,6 +76,16 @@ function App() {
                   <PrivateRoute>
                     {" "}
                     <Watched />{" "}
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path="/ratings"
+                element={
+                  <PrivateRoute>
+                    {" "}
+                    <Rated />{" "}
                   </PrivateRoute>
                 }
               />

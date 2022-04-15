@@ -10,8 +10,8 @@ from rest_framework import status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import WatchListSerializer
-from .models import WatchList
+from .serializers import WatchListSerializer, RatingSerializer
+from .models import WatchList, Rating
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -75,3 +75,49 @@ def deleteWishlist(request, pk):
     watchlists.delete()
 
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST', 'GET'])
+@permission_classes([IsAuthenticated])
+def ratingView(request):
+
+    if request.method == 'GET':
+        user = request.user
+        ratings = user.rating_set.all()
+        serializer = RatingSerializer(ratings, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        user = request.user
+        ratings = user
+        serializer = RatingSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT','DELETE'])
+@permission_classes([IsAuthenticated])
+def editRating(request, pk):
+
+    if request.method == 'PUT':
+        rating = Rating.objects.get(id=pk)
+        serializer = RatingSerializer(rating, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    
+    elif request.method == 'DELETE':
+
+        rating = Rating.objects.get(id=pk)
+        rating.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

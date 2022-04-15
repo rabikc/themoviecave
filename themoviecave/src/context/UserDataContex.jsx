@@ -12,6 +12,8 @@ export const UserDataProvider = (props) => {
 
     const [watchlist, setWatchlist] = useState([])
 
+    const [rating, setRating] = useState([])
+
     const [error, setError] = useState();
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -35,11 +37,27 @@ export const UserDataProvider = (props) => {
         getWatchlist();
       }, []);
 
+      const getRating = async () => {
+      
+        const response = await fetch("http://127.0.0.1:8000/api/rated/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${contextData.tokens.access}`,
+          },
+        });
+        const data = await response.json();
+        setRating(data);
+        console.log(response.status);
+        console.log(data)
+      };
 
-
+      useEffect(() => {
+        getRating();
+      }, []);
 
       return(
-        <UserDataContext.Provider value={{watchlist, getWatchlist}}>
+        <UserDataContext.Provider value={{watchlist, getWatchlist, rating, getRating}}>
             {props.children}
         </UserDataContext.Provider>
     )

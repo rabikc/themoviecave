@@ -26,11 +26,16 @@ class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     name = models.CharField(max_length=250)
-    content_id = models.CharField(max_length=250)
-    media_type = models.CharField(max_length=250)
+    content_id = models.CharField(max_length=50)
+    media_type = models.CharField(max_length=20)
     overview = models.TextField()
-    poster_path = models.CharField(max_length=250)
-    backdrop_path = models.CharField(max_length=250)
+    genre = models.CharField(max_length=100)
+    poster_path = models.CharField(max_length=100)
+    backdrop_path = models.CharField(max_length=100)
+    date = models.CharField(max_length=20)
+    review = models.TextField()
 
     def __str__(self):
         return self.name
+
+

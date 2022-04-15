@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { img_300, unavailable, original } from "../../config";
-import CustomPage from "../CustomPage";
 import Backdrop from "./ContentBackdrop";
 import Cast from "./Cast";
 import Keywords from "./Keywords";
@@ -12,8 +11,10 @@ import ExtraDetail from "./ExtraDetail";
 import Video from "./Video";
 
 const SingleContent = () => {
+
   const { category, id } = useParams();
   const [content, setContent] = useState();
+  const [keyWords, setKeyWords] = useState();
 
   useEffect(() => {
     const tmdbAPI = async () => {
@@ -32,6 +33,29 @@ const SingleContent = () => {
 
     tmdbAPI();
   }, [category, id]);
+
+    useEffect(() => {
+
+    const getKeyWords = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}`
+        )
+
+        setKeyWords(data)
+        console.log(data)
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+
+    getKeyWords()
+
+  }, [category, id]);
+
+
+
   return (
     <>
       {content && (
@@ -45,7 +69,7 @@ const SingleContent = () => {
             }}
           ></div>
           <div className="middle-content-section container">
-          <Backdrop content={content}/>
+          <Backdrop content={content} keyWords={keyWords}/>
             <Cast />
             <div className="middle-content-grid-section">
               <div className="grid-left-side">
@@ -53,9 +77,10 @@ const SingleContent = () => {
               </div>
               <div className="grid-right-side">
                 <ExtraDetail />
-                <Keywords />
+                <Keywords keyWords={keyWords}/>
               </div>
             </div>
+            <Footer />
           </div>
         </section>
       )}

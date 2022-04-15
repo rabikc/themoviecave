@@ -54,7 +54,7 @@ const Header = () => {
                     <li className="user-dropdown-menu">
                       <Link to='/watchlist' className='dropdown-item'> WatchList</Link>
                       <Link to='/favorites'className='dropdown-item'> Favorites</Link>
-                      <Link to='/watched'className='dropdown-item'> Rated</Link>
+                      <Link to='/ratings'className='dropdown-item'> Rated</Link>
                       <span className='dropdown-item logout-btn' onClick={contextData.logOut}> Log Out</span>
                     </li>
                     }
