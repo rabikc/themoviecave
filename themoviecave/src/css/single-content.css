@@ -79,13 +79,30 @@
     display: flex;
 }
 
-.user-functions svg{
+/* .user-functions .bookmark-svg, .user-functions .favorite-svg{
     margin-right: 1rem;
     width: 30px;
     cursor: pointer;
     background-color: var(--s);
     padding: 0.25rem;
     border-radius: 50%;
+} */
+
+.framer-user-btn{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: #fff;
+    background-color: var(--s);
+    padding: 0.25rem;
+    border-radius: 50%;
+    display: flex;
+    margin-right: 1rem;
+}
+
+.framer-user-btn svg{
+    width: 100%;
 }
 
 .details-genre span:last-child{
@@ -141,13 +158,6 @@
     margin-left: 0.2rem;
 }
 
-.rater-container{
-    position: absolute;
-    right: 0;
-    top: 130%;
-
-}
-
 .vote-count{
     font-size: 0.75rem;
     color: var(--t);
@@ -166,12 +176,15 @@
 
             /************* WHOLE CONTAINER ************/
 
+.second-content-parent{
+    position: absolute;
+    top: 43%;
+}
+
 .middle-content-section{
     display: grid;
     grid-template-columns: 1fr;
-    position: absolute;
-    top: 43%;
-    left: 5%;
+    z-index: -10;
 }
 
 .middle-content-grid-section{
@@ -354,4 +367,85 @@
 
 .video-na{
     font-size: 1rem;
+}
+
+        /****** MODAL ******/
+
+.modal-backdrop{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-modal{
+    width: clamp(50%, 700px, 90%);
+    height: min(50%, auto);
+    margin: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    color: #fff;
+    background-color: var(--m);
+}
+
+.rating-modal-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-modal-title{
+    margin-bottom: 2rem;
+}
+
+.rating-modal-content .rating-section{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    width: 55%;
+}
+
+.rating-modal-content .rating-section h2{
+    margin-bottom: 1rem;
+}
+
+.rating-modal-content .review-section{
+    margin-bottom: 2rem;
+}
+
+.review-section .rating-review{
+    width: 450px;
+    height: 250px;
+    resize: none;
+}
+.modal-close-btn{
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    padding: 0.4rem 0.6rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.post-rating-btn{
+    padding: 0.6rem 0.8rem;
+    background-color: var(--s);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
 }

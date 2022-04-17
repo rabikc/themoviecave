@@ -4,32 +4,30 @@ import { useState } from 'react';
 import axios from 'axios';
 import "../../css/single-content.css";
 
-const Keywords = ({keyWords}) => {
+const Keywords = () => {
 
   const { category, id } = useParams();
-  // const [keyWords, setKeyWords] = useState();
+  const [keyWords, setKeyWords] = useState();
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const tmdbAPI = async () => {
-  //     try {
-  //       const { data } = await axios.get(
-  //         `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}`
-  //       )
+    const tmdbAPI = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.REACT_APP_API_KEY}`
+        )
 
-  //       setKeyWords(data)
-  //       console.log(data)
-  //     }
-  //     catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
+        setKeyWords(data)
+        console.log(data)
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
 
-  //   tmdbAPI()
+    tmdbAPI()
 
-  // }, [category, id]);
-
-  console.log(keyWords)
+  }, [category, id]);
 
   return (
     <div className='keywords-section'>

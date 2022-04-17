@@ -18,7 +18,11 @@ export const UserDataProvider = (props) => {
 
     const [isLoaded, setIsLoaded] = useState(false);
 
+    
+
     const getWatchlist = async () => {
+
+      if(contextData.user){
       
         const response = await fetch("http://127.0.0.1:8000/api/watchlists/", {
           method: "GET",
@@ -31,13 +35,14 @@ export const UserDataProvider = (props) => {
         setWatchlist(data);
         console.log(response.status);
         console.log(data)
-      };
+      };}
 
       useEffect(() => {
         getWatchlist();
       }, []);
 
       const getRating = async () => {
+        if(contextData.user){
       
         const response = await fetch("http://127.0.0.1:8000/api/rated/", {
           method: "GET",
@@ -50,6 +55,7 @@ export const UserDataProvider = (props) => {
         setRating(data);
         console.log(response.status);
         console.log(data)
+      }
       };
 
       useEffect(() => {
