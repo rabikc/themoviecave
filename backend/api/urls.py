@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from . import views
-from .views import UserViewSet, MyTokenObtainPairView
+from .views import  MyTokenObtainPairView
 # from .views import RegisterAPI
 
 from rest_framework_simplejwt.views import (
@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import (
 )
 
 router = routers.DefaultRouter()
-router.register('users', UserViewSet)
+# router.register('users', UserViewSet)
 # router.register('watchlists', WatchlistViewSet)
 # router.register('token', MyTokenObtainPairView)
 # router.register('token/refresh', TokenRefreshView)
