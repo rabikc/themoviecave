@@ -259,13 +259,45 @@ body {
 }
 
 .reset-password-container{
-    padding: 1rem;
+    padding: 1.5rem;
+    background-color: var(--s);
+    border-radius: 10px;
+}
+
+.reset-password-container .input input{
+    width: 90%;
+    padding: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.reset-password-container  form > input{
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: white;
+    background-color: var(--t);
+    border-radius: 5px;
+}
+
+.reset-password-container  form .password-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+
+}
+
+.reset-password-container  form .password-input input{
+    padding: 0.4rem;
+    margin-top: 0.7rem;
+
 }
 
 .password-reset-header{
     color: #fff;
     margin-bottom: 1.5rem;
 }
+
+
 
 
 /********** FOOTER **********/
@@ -357,4 +389,37 @@ footer {
     transform: translate(-50%,-50%);
     color: #fff;
     font-size: 1.7rem;
+}
+
+
+/******* ACTIVATE ACCOUNT *******/
+
+.verification-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 88vh;
+}
+
+.verification-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.verification-section h1{
+    color: #fff;
+    margin-bottom: 3rem;
+}
+
+.verification-section button{
+    border: none;
+    padding: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--s);
+    color: #fff;
+    font-size: 1rem;
 }

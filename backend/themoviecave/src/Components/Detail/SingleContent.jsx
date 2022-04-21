@@ -11,6 +11,7 @@ import Backdrop from "./ContentBackdrop";
 
 
 const SingleContent = () => {
+  
   const { category, id } = useParams();
   const [content, setContent] = useState();
   const navigate = useNavigate();

@@ -16,40 +16,28 @@ import ExtraDetail from "./ExtraDetail";
 import Video from "./Video";
 
 const ContentBackdrop = ({ content }) => {
-
   const { category, id } = useParams();
-  const [rValue, setRValue] = useState();
+  const [rValue, setRValue] = useState(0);
   const [postResponse, setPostResponse] = useState("");
   const { contextData } = useContext(AuthContext);
-  const { watchlist, rating} = useContext(UserDataContext);
+  const { watchlist, rating, getRating, getWatchlist } = useContext(UserDataContext);
   // const [genre, setGenre] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [review, setReview] = useState("");
+  const [seeRated, setSeeRated] = useState({});
+  const [seeWatchlist, setSeeWatchlist] = useState({});
+  const [seeFavorites, setSeeFavorites] = useState({});
+  const [seeWatched, setSeeWatched] = useState({});
 
   // const navigate = useNavigate()
 
-  const ratingStored = rating.find( r => r.content_id ===  id );
+  useEffect(() => {
+    getRating()
+  }, [])
 
-  const ratingBoolean = ratingStored ? true : false
-
-
-console.log(ratingStored)
-console.log(ratingBoolean)
-
-  // const alreadyRated = ratingStored.stars
-
-  // ratingBoolean === true
-  // ?
-  // setRValue(alreadyRated)
-  // :
-  // setRValue(0)
-  
-  // useEffect(() => {
-
-  //   if(ratingStored){
-  //     setRValue(ratingStored.stars)
-  //   }
-  // },[content])
+  useEffect(() => {
+    getWatchlist()
+  }, [])
 
   const dropIn = {
     hidden: {
@@ -82,7 +70,6 @@ console.log(ratingBoolean)
     body.style.overflow = openModal ? "hidden" : "auto";
   }, [openModal]);
 
-
   const handleRating = (e, newRValue) => {
     setRValue(newRValue);
   };
@@ -91,11 +78,7 @@ console.log(ratingBoolean)
     handleRating();
   }, []);
 
-  console.log(rValue);
-
-
   const postRating = async () => {
-
     const mapGenres = content.genres.map((g) => g.name);
     const getGenres = mapGenres.toString();
 
@@ -109,7 +92,7 @@ console.log(ratingBoolean)
         backdrop_path: content.backdrop_path,
         user: contextData.user.user_id,
         stars: rValue,
-        review: "Good",
+        review: review,
         genre: getGenres,
         date: content.release_date || content.first_air_date,
       };
@@ -138,6 +121,25 @@ console.log(ratingBoolean)
       setPostResponse("You need to sign in first");
     }
   };
+
+  const checkRating = async () => {
+    if (contextData.user) {
+      const ratingStored = rating.find((r) => r.content_id === id);
+      const ratingBoolean = ratingStored ? true : false;
+      console.log(ratingBoolean);
+      console.log(ratingStored);
+      // console.log(ratingStored.stars);
+      setSeeRated(ratingStored);
+      console.log(seeRated);
+
+      ratingBoolean === true ? setRValue(ratingStored.stars) : setRValue(0);
+    }
+    // console.log(rValue);
+  };
+
+  useEffect(() => {
+    checkRating();
+  });
 
   const postWatchlist = async () => {
     if (contextData.user) {
@@ -174,6 +176,50 @@ console.log(ratingBoolean)
     } else if (contextData.user === null) {
       setPostResponse("You need to sign in first");
     }
+
+    getWatchlist()
+    checkWatchlist()
+  };
+  
+  const checkWatchlist = async () => {
+    if (contextData.user) {
+      const watchlistStored = watchlist.find((r) => r.content_id === id);
+      const watchlistBoolean = watchlistStored ? true : false;
+      console.log(watchlistBoolean);
+      console.log(watchlistStored);
+      // console.log(watchlistStored.stars);
+      setSeeWatchlist(watchlistStored);
+      console.log(seeWatchlist);
+    }
+    // console.log(rValue);
+  };
+
+  useEffect(() => {
+    checkWatchlist();
+  });
+
+  const deleteWatchlist = async () => { 
+    const response = fetch(`http://127.0.0.1:8000/api/watchlists/${seeWatchlist.id}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${contextData.tokens.access}`,
+      },
+    });
+
+    // setIsLoaded(true);
+
+    const data = await response;
+
+    console.log(data);
+
+    if(data){
+      getWatchlist();
+    }
+
+    console.log(response.status);
+    // console.log(response.status);
+    // contextData.setLoading = false;
   };
 
   return (
@@ -235,14 +281,21 @@ console.log(ratingBoolean)
                 <motion.div className="review-section">
                   <h2 className="review-section-title">Review</h2>
                   <textarea
-                    name="content-review"
+                    name="review"
                     className="rating-review"
                     cols="30"
                     rows="10"
                     onChange={(e) => setReview(e.target.value)}
-                  ></textarea>
+                  >{seeRated &&
+                    seeRated.review
+                  }</textarea>
                 </motion.div>
-                <motion.button className="post-rating-btn" onClick={() => postRating()}>Post</motion.button>
+                <motion.button
+                  className="post-rating-btn"
+                  onClick={() => postRating()}
+                >
+                  Post
+                </motion.button>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -303,7 +356,7 @@ console.log(ratingBoolean)
                     </span>
                     <div className="user-functions">
                       <motion.button
-                      className="framer-user-btn"
+                        className="framer-user-btn"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -322,10 +375,15 @@ console.log(ratingBoolean)
                           ></path>
                         </svg>
                       </motion.button>
-                      <motion.button
-                      className="framer-user-btn"
+
+                      {
+                        seeWatchlist && seeWatchlist.id 
+                        ?
+                        <motion.button
+                        className="already-user-selected"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        onClick={() => deleteWatchlist()}
                       >
                         <svg
                           className="w-6 h-6 bookmark-svg"
@@ -342,34 +400,15 @@ console.log(ratingBoolean)
                           ></path>
                         </svg>
                       </motion.button>
+                      :
                       <motion.button
-                        className="framer-user-btn"
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => (openModal ? close() : open())}
-                      >
-                        <svg
-                          className="w-6 h-6 star-svg"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                          ></path>
-                        </svg>
-                      </motion.button>
-                    </div>
-                  </div>
-                  <div className="backdrop-content-rating">
-                    <div className="rating-container">
-                      <span>{content.vote_average}</span>
+                      className="framer-user-btn"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => postWatchlist()}
+                    >
                       <svg
-                        className="w-6 h-6 star-svg"
+                        className="w-6 h-6 bookmark-svg"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -379,9 +418,72 @@ console.log(ratingBoolean)
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth="2"
-                          d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                          d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                         ></path>
                       </svg>
+                    </motion.button>
+                      }
+                      {seeRated && seeRated.stars ? (
+                        <motion.button
+                          className="already-rated-user-btn"
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => (openModal ? close() : open())}
+                        >
+                            <span>{rValue}</span>
+                            <svg
+                              width="15"
+                              height="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="ipc-icon ipc-icon--star-inline content-star-svg"
+                              id="iconContext-star-inline"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              role="presentation"
+                            >
+                              <path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path>
+                            </svg>
+                        </motion.button>
+                      ) : (
+                        <motion.button
+                          className="framer-user-btn"
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => (openModal ? close() : open())}
+                        >
+                          <svg
+                            className="w-6 h-6 star-svg"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                            ></path>
+                          </svg>
+                        </motion.button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="backdrop-content-rating">
+                    <div className="rating-container">
+                      <span>{content.vote_average}</span>
+                      <svg
+                              width="15"
+                              height="15"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="ipc-icon ipc-icon--star-inline content-star-svg"
+                              id="iconContext-star-inline"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              role="presentation"
+                            >
+                              <path d="M12 20.1l5.82 3.682c1.066.675 2.37-.322 2.09-1.584l-1.543-6.926 5.146-4.667c.94-.85.435-2.465-.799-2.567l-6.773-.602L13.29.89a1.38 1.38 0 0 0-2.581 0l-2.65 6.53-6.774.602C.052 8.126-.453 9.74.486 10.59l5.147 4.666-1.542 6.926c-.28 1.262 1.023 2.26 2.09 1.585L12 20.099z"></path>
+                            </svg>
                     </div>
                     <span className="vote-count">
                       {content.vote_count

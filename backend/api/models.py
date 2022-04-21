@@ -116,3 +116,49 @@ class Rating(models.Model):
         return self.name
 
 
+class Watched(models.Model):
+
+    # movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    name = models.CharField(max_length=250)
+    content_id = models.CharField(max_length=50)
+    media_type = models.CharField(max_length=20)
+    overview = models.TextField()
+    # genre = models.CharField(max_length=100)
+    poster_path = models.CharField(max_length=100)
+    backdrop_path = models.CharField(max_length=100)
+    date = models.CharField(max_length=20)
+    # vote_average = models.CharField(max_length=50)
+    # review = models.TextField()
+
+    class Meta:
+        unique_together = (('user', 'content_id'),)    
+
+    def __str__(self):
+        return self.name
+
+
+class Favorites(models.Model):
+
+    # movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    name = models.CharField(max_length=250)
+    content_id = models.CharField(max_length=50)
+    media_type = models.CharField(max_length=20)
+    overview = models.TextField()
+    # genre = models.CharField(max_length=100)
+    poster_path = models.CharField(max_length=100)
+    backdrop_path = models.CharField(max_length=100)
+    date = models.CharField(max_length=20)
+    # vote_average = models.CharField(max_length=50)
+    # review = models.TextField()
+
+    class Meta:
+        unique_together = (('user', 'content_id'),)    
+
+    def __str__(self):
+        return self.name
+
+

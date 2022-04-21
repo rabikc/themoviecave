@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import Card from "../Components/WatchedCard";
+import Card from "../Components/FavoritesCard";
 import AuthContext from "../context/AuthContext";
 import UserDataContext from "../context/UserDataContex";
 import "../css/watchlist.css";
 
-const Watched = () => {
+const Favorites = () => {
 
-  const [watched, setWatched] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   const { contextData } = useContext(AuthContext);
 
@@ -16,9 +16,9 @@ const Watched = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const getWatched = async () => {
+  const getFavorites = async () => {
       
-    const response = await fetch("http://127.0.0.1:8000/api/watched/", {
+    const response = await fetch("http://127.0.0.1:8000/api/favorites/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,24 +33,24 @@ const Watched = () => {
     console.log(response.status);
 
     if (response.status === 200) {
-      setWatched(data);
+      setFavorites(data);
     } else if (response.status === 401) {
       // contextData.logOut();
     } else if (response.status === 404) {
       setError("404");
     }
 
-    setWatched(data);
+    setFavorites(data);
     console.log(response.status);
 
     contextData.setLoading = false;
   };
 
   useEffect(() => {
-    getWatched();
+    getFavorites();
   }, []);
 
-  console.log(watched);
+  console.log(favorites);
 
   if (error) {
     return <div className="error-message">Error: {error}</div>;
@@ -61,14 +61,14 @@ const Watched = () => {
       <section className="user-saved-section">
         <div className="user-saved-content container">
           <div className="titles-subtitles">
-            <h1>Your Watchlist</h1>
-            <h2>{watched.length} titles</h2>
+            <h1>Your Favorites List</h1>
+            <h2>{favorites.length} titles</h2>
           </div>
           <div className="user-saved-grid">
-            {watched.length > 0 
+            {favorites.length > 0 
             ? 
-              watched.map((content, i) => (
-                <Card content={content} key={i} getWatched={getWatched}/>
+              favorites.map((content, i) => (
+                <Card content={content} key={i} getfavorites={getFavorites}/>
               ))
             :
             <h1 className="no-watchlist-title">There is no title in your Watchlist</h1>
@@ -80,4 +80,4 @@ const Watched = () => {
   }
 };
 
-export default Watched
+export default Favorites;

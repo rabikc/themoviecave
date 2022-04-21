@@ -27,7 +27,9 @@ INSTALLED_APPS = [
     'api',
     'djoser',
     'rest_framework_simplejwt.token_blacklist',
-    # 'social_django',
+    'social_django',
+    'oauth2_provider',
+    'drf_social_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -109,8 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 REST_FRAMEWORK = {
-            'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  
+        'drf_social_oauth2.authentication.SocialAuthentication',
 
     ],
 
@@ -187,10 +192,26 @@ EMAIL_HOST_PASSWORD = 'tllhwofuxytsufbv'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# AUTHENTICATION_BACKENDS = (
-#     'social_core.backends.google.GoogleOAuth2',
-#     'django.contrib.auth.backends.ModelBackend'
-# )
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'drf_social_oauth2.backends.DjangoOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+# Facebook configuration
+# SOCIAL_AUTH_FACEBOOK_KEY = 'your facebook key'
+# SOCIAL_AUTH_FACEBOOK_SECRET = 'your facebook secret'
+
+# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+#    'fields': 'id, name, email'
+# }
+
+# SOCIAL_AUTH_USER_FIELDS=['email','first_name','username','password']
 
 
 #Client ID --- 1089820763675-3e0km9kvu9alel0qr5cfv3ldi2gv6ig0.apps.googleusercontent.com

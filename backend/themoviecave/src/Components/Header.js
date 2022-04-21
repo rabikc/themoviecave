@@ -9,15 +9,6 @@ const Header = () => {
 
   const [open, setOpen] = useState(false);
 
-  
-  // const [signIn, setSignIn] = useState({ username: '', password: '' });
-
-  // const { username, password } = signIn;
-
-  // const changeHandler = e => {
-  //   setSignIn({ ...signIn, [e.target.name]: e.target.value });
-  // }
-
   return (
     <>
       <header className='page-header'>
@@ -55,6 +46,7 @@ const Header = () => {
                       <Link to='/watchlist' className='dropdown-item'> WatchList</Link>
                       <Link to='/favorites'className='dropdown-item'> Favorites</Link>
                       <Link to='/ratings'className='dropdown-item'> Rated</Link>
+                      <Link to='/watched'className='dropdown-item'> Watched</Link>
                       <span className='dropdown-item logout-btn' onClick={contextData.logOut}> Log Out</span>
                     </li>
                     }

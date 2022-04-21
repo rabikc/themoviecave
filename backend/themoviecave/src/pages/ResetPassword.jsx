@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../css/style.css";
 
+import { motion } from "framer-motion";
+
 const ResetPassword = () => {
 
   const [message, setMessage] = useState("");
@@ -37,10 +39,9 @@ const ResetPassword = () => {
   return (
     <div className="reset-password-section">
       <div className="reset-password-container">
-        <h1 className="password-reset-header">Enter your username</h1>
+        <h1 className="password-reset-header">Enter your email</h1>
         <form onSubmit={resetPassword}>
-          <div className="password-input">
-            <label htmlFor="reset-password"></label>
+          <div className="input">
             <input type="email" name="email" />
           </div>
           <input type="submit" value="Submit" className="password-reset-btn" />
@@ -52,3 +53,6 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+
+// whileHover={{ scale: 1.1 }}
+// whileTap={{ scale: 0.9 }}

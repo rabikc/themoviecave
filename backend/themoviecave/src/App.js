@@ -23,6 +23,7 @@ import PublicRoute from "./utils/PublicRoute";
 import Activate from "./pages/Activate";
 import RePassword from "./pages/ResetPassword";
 import RePassCon from "./pages/ResetPasswordConfirm";
+import Favorites from "./pages/Favorites";
 
 
 function App() {
@@ -77,8 +78,7 @@ function App() {
                 path="/watched"
                 element={
                   <PrivateRoute>
-                    {" "}
-                    <Watched />{" "}
+                    <Watched />
                   </PrivateRoute>
                 }
               />
@@ -87,8 +87,25 @@ function App() {
                 path="/ratings"
                 element={
                   <PrivateRoute>
-                    {" "}
-                    <Rated />{" "}
+                    <Rated />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path="/favorites"
+                element={
+                  <PrivateRoute>
+                    <Favorites/>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path="/watched"
+                element={
+                  <PrivateRoute>
+                    <Watched/>
                   </PrivateRoute>
                 }
               />

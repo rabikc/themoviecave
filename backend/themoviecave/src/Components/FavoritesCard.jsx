@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { img_300, unavailable } from "../config";
 import AuthContext from "../context/AuthContext";
 
-const UserContentCard = ({content, getWatchlist}) => {
+const FavoritesCard = ({content, getFavorites}) => {
 
   const { contextData } = useContext(AuthContext);
 
-  const deleteWatchlist = async () => {
+  const deleteFavorites = async () => {
       
     const response = fetch(`http://127.0.0.1:8000/api/watchlists/${content.id}/`, {
       method: "DELETE",
@@ -24,7 +24,7 @@ const UserContentCard = ({content, getWatchlist}) => {
     console.log(data);
 
     if(data){
-      getWatchlist();
+      getFavorites();
     }
 
     console.log(response.status);
@@ -80,10 +80,10 @@ const UserContentCard = ({content, getWatchlist}) => {
             (content.release_date && content.release_date.substring(0, 4))}
         </span>
         <p className="content-overview">{content.overview}</p>
-        <button className="content-remove-btn" onClick={deleteWatchlist}>Remove</button>
+        <button className="content-remove-btn" onClick={deleteFavorites}>Remove</button>
       </div>
     </div>
   );
 };
 
-export default UserContentCard;
+export default FavoritesCard;

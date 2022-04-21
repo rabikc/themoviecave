@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import UniqueValidator
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth.models import User
-from .models import WatchList, Rating
+from .models import WatchList, Rating, Watched, Favorites
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -74,4 +74,16 @@ class RatingSerializer(ModelSerializer):
 
     class Meta:
         model = Rating
+        fields = '__all__'
+
+class WatchedSerializer(ModelSerializer):
+
+    class Meta:
+        model = Watched
+        fields = '__all__'
+
+class FavoritesSerializer(ModelSerializer):
+
+    class Meta:
+        model = Favorites
         fields = '__all__'

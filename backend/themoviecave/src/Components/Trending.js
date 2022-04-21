@@ -4,10 +4,19 @@ import { useEffect, useState, useContext} from "react";
 import '../css/trending.css';
 import ContentCard from "./ContentCard";
 
+import AuthContext from "../context/AuthContext";
+import UserDataContext from "../context/UserDataContex";
 
 const Trending = () => {
 
   const [result, setResult] = useState ([]);
+  const { contextData } = useContext(AuthContext);
+
+  const { watchlist, getWatchlist, rating, getRating } = useContext(UserDataContext);
+
+  useEffect(() => {
+    getWatchlist()
+  }, [])
 
 
   const trendingAPI = async () => {

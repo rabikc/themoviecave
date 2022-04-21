@@ -1,5 +1,4 @@
 from unicodedata import name
-from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
@@ -24,9 +23,14 @@ urlpatterns = [
     path('watchlists/<str:pk>/', views.deleteWishlist,name='Watchlist'),
     path('rated/', views.ratingView,name='Ratings'),
     path('rated/<str:pk>/', views.editRating,name='Rating'),
+    path('favorites/', views.favoritesView,name='Favorites'),
+    path('favorites/<str:pk>/', views.editFavorites,name='Favorite'),
+    path('watched/', views.watchedView,name='Ratings'),
+    path('watched/<str:pk>/', views.editWatched,name='Rating'),
     # path('users/', views.as_view(), name= ),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
 ]
 
 # include(router.urls)
